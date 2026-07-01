@@ -1,26 +1,104 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --foreground-rgb: 230, 230, 230;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(var(--foreground-rgb));
+  background-color: #000000;
+  min-height: 100vh;
+  font-family: 'Courier New', Courier, monospace;
+  overflow-x: hidden;
+  /* Cyberpunk grid background */
+  background-image: 
+    linear-gradient(rgba(255, 32, 32, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 32, 32, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center center;
+}
+
+.mono-font {
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: -0.05em;
+}
+
+/* Terminal Utility Classes */
+.terminal-panel {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0; /* Brutalist sharp corners */
+  box-shadow: none;
+}
+
+.terminal-button {
+  background-color: transparent;
+  border: 1px solid rgba(255, 32, 32, 0.4);
+  color: #ff2020;
+  border-radius: 0;
+  transition: all 0.1s steps(2);
+  font-family: 'Courier New', Courier, monospace;
+  text-transform: uppercase;
+}
+
+.terminal-button:hover:not(:disabled) {
+  background-color: rgba(255, 32, 32, 0.1);
+  border-color: #ff2020;
+}
+
+.terminal-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Primary Button Override */
+.primary-button {
+  background: transparent;
+  border: 1px solid #ffffff;
+  border-radius: 0;
+  color: #ffffff;
+  transition: all 0.1s steps(2);
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.primary-button:hover:not(:disabled) {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+::-webkit-scrollbar-thumb {
+  background: #ff2020; 
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff; 
+}
+
+/* Glitch effects & Animations */
+@keyframes glitch {
+  0% { transform: translate(0) }
+  20% { transform: translate(-2px, 1px) }
+  40% { transform: translate(-1px, -1px) }
+  60% { transform: translate(2px, 1px) }
+  80% { transform: translate(1px, -1px) }
+  100% { transform: translate(0) }
+}
+
+.glitch-hover:hover {
+  animation: glitch 0.2s cubic-bezier(.25, .46, .45, .94) both infinite;
 }
