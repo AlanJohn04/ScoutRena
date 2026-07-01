@@ -57,6 +57,28 @@ body {
   color: rgba(255, 255, 255, 0.5);
 }
 
+.terminal-input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(255, 32, 32, 0.4);
+  color: #ffffff;
+  font-family: 'Courier New', Courier, monospace;
+  transition: all 0.2s steps(3);
+  padding-left: 0;
+  border-radius: 0;
+}
+
+.terminal-input:focus {
+  outline: none;
+  border-bottom-color: #ff2020;
+  background-color: rgba(255, 32, 32, 0.05);
+}
+
+.terminal-input::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+}
+
 /* Primary Button Override */
 .primary-button {
   background: transparent;

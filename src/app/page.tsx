@@ -18,41 +18,41 @@ export default function Home() {
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="w-full max-w-3xl bg-[#ff2020] p-12 md:p-20 flex flex-col items-center justify-center text-center relative shadow-[0_0_50px_rgba(255,32,32,0.3)] z-10 glitch-hover"
+        className="w-full max-w-4xl bg-[#ff2020] p-16 md:p-24 flex flex-col items-center justify-center text-center relative shadow-[0_0_50px_rgba(255,32,32,0.3)] z-10 glitch-hover"
       >
-        <span className="absolute top-4 left-4 text-black text-[10px] font-bold tracking-widest mono-font">[SYSTEM_INIT]</span>
-        <span className="absolute top-4 right-4 text-black text-[10px] font-bold tracking-widest mono-font">[V.1.0]</span>
+        <div className="absolute top-4 left-4 text-black text-[10px] font-bold tracking-widest mono-font">[SYSTEM_INIT]</div>
+        <div className="absolute top-4 right-4 text-black text-[10px] font-bold tracking-widest mono-font">[V.1.0]</div>
         
-        <span className="py-1 px-3 border border-black text-[10px] font-bold tracking-widest text-black uppercase mb-8 mono-font">
+        <div className="py-1 px-3 border border-black text-[10px] font-bold tracking-widest text-black uppercase mb-10 mono-font">
           [ INTRODUCING SCOUTRENA ENTERPRISE ]
-        </span>
+        </div>
         
-        <h1 className="text-4xl md:text-6xl font-black tracking-tight text-black leading-tight uppercase font-sans">
+        <h1 className="text-5xl md:text-7xl font-black tracking-tight text-black leading-none uppercase font-sans">
           Don't search <br/> for talent.
         </h1>
 
-        <p className="text-sm md:text-base text-black font-semibold max-w-lg leading-relaxed mt-8 mono-font">
+        <p className="text-sm md:text-base text-black font-bold max-w-xl leading-relaxed mt-10 mono-font">
           ScoutRena is the world's first AI-powered Talent Platform. Turn skills, experience, and potential into dynamic market valuations securely via smart contracts.
         </p>
 
         {/* Action triggers */}
-        <div className="flex flex-col sm:flex-row gap-6 mt-12 w-full justify-center mono-font">
+        <div className="flex flex-col sm:flex-row gap-6 mt-16 w-full justify-center mono-font">
           <Link
             href="/auth/register"
-            className="py-3 px-8 text-white bg-black hover:bg-[#222] font-bold text-xs uppercase tracking-widest border border-black transition-colors flex items-center justify-center gap-2"
+            className="py-4 px-10 text-white bg-black hover:bg-[#222] font-bold text-xs uppercase tracking-widest border border-black transition-colors flex items-center justify-center gap-3"
           >
             [ GET_STARTED ] <ArrowRight className="w-4 h-4" />
           </Link>
           <Link
             href="/market"
-            className="py-3 px-8 text-black bg-transparent hover:bg-black hover:text-white font-bold text-xs uppercase tracking-widest border border-black transition-colors"
+            className="py-4 px-10 text-black bg-transparent hover:bg-black hover:text-white font-bold text-xs uppercase tracking-widest border border-black transition-colors"
           >
             [ EXPLORE_MARKET ]
           </Link>
         </div>
         
-        <span className="absolute bottom-4 left-4 text-black text-[10px] font-bold tracking-widest mono-font">[STATUS: AWAITING_INPUT]</span>
-        <span className="absolute bottom-4 right-4 text-black text-[10px] font-bold tracking-widest mono-font">[READY]</span>
+        <div className="absolute bottom-4 left-4 text-black text-[10px] font-bold tracking-widest mono-font hidden md:block">[STATUS: AWAITING_INPUT]</div>
+        <div className="absolute bottom-4 right-4 text-black text-[10px] font-bold tracking-widest mono-font">[READY]</div>
       </motion.div>
 
       {/* Corporate-style stats and pillars - Terminal Style */}

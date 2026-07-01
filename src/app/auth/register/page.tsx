@@ -73,111 +73,110 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-10 relative overflow-hidden">
-      {/* Decorative Orbs */}
-      <div className="absolute top-[10%] right-[20%] w-[30%] h-[30%] bg-indigo-600/20 rounded-full blur-[100px] pointer-events-none -z-10"></div>
-      <div className="absolute bottom-[10%] left-[20%] w-[30%] h-[30%] bg-cyan-600/20 rounded-full blur-[100px] pointer-events-none -z-10"></div>
-
-      <div className="w-full max-w-md glass-panel p-10 relative mt-10 mb-10">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-extrabold text-white tracking-tight">Create Account</h2>
-          <p className="text-sm text-slate-400 mt-2 font-medium">Join the Talent Market</p>
+    <div className="min-h-screen flex items-center justify-center py-10 relative overflow-hidden mono-font">
+      <div className="w-full max-w-2xl terminal-panel p-12 relative z-10">
+        <div className="absolute top-0 left-0 w-full h-1 bg-[#ff2020]"></div>
+        
+        <div className="mb-12 border-b border-[#ff2020]/30 pb-6">
+          <span className="text-[10px] text-[#ff2020] font-bold tracking-widest uppercase mb-2 block">[ SYSTEM_REGISTRATION ]</span>
+          <h2 className="text-3xl font-black text-white tracking-widest uppercase">Initialize Entity</h2>
+          <p className="text-xs text-[#888888] mt-2 font-bold tracking-widest uppercase">Join the Talent Market</p>
         </div>
 
         {error && (
-          <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm font-semibold text-center">
-            {error}
+          <div className="mb-8 p-4 border border-[#ff2020] bg-[#ff2020]/10 text-[#ff2020] text-xs font-bold uppercase tracking-widest text-center">
+            [ERR]: {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-8">
           <div>
-            <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">I am a...</label>
-            <div className="grid grid-cols-2 gap-2">
+            <label className="block text-[10px] font-bold text-[#ff2020] uppercase tracking-widest mb-3">{'>'} DEFINE_ROLE:</label>
+            <div className="grid grid-cols-2 gap-4">
               <button
                 type="button"
                 onClick={() => setRole("student")}
-                className={`py-3 px-4 text-xs font-bold uppercase tracking-widest transition-all rounded-xl ${
+                className={`py-3 px-4 text-xs font-bold uppercase tracking-widest transition-colors border ${
                   role === "student"
-                    ? "bg-indigo-600/80 text-white border border-indigo-500/50 shadow-[0_0_15px_rgba(99,102,241,0.3)]"
-                    : "bg-slate-900/50 text-slate-400 border border-slate-700/50 hover:bg-slate-800"
+                    ? "bg-[#ff2020] text-black border-[#ff2020]"
+                    : "bg-transparent text-[#888888] border-[#ff2020]/30 hover:border-[#ff2020] hover:text-white"
                 }`}
               >
-                Talent
+                [ TALENT ]
               </button>
               <button
                 type="button"
                 onClick={() => setRole("company")}
-                className={`py-3 px-4 text-xs font-bold uppercase tracking-widest transition-all rounded-xl ${
+                className={`py-3 px-4 text-xs font-bold uppercase tracking-widest transition-colors border ${
                   role === "company"
-                    ? "bg-indigo-600/80 text-white border border-indigo-500/50 shadow-[0_0_15px_rgba(99,102,241,0.3)]"
-                    : "bg-slate-900/50 text-slate-400 border border-slate-700/50 hover:bg-slate-800"
+                    ? "bg-[#ff2020] text-black border-[#ff2020]"
+                    : "bg-transparent text-[#888888] border-[#ff2020]/30 hover:border-[#ff2020] hover:text-white"
                 }`}
               >
-                Company
+                [ COMPANY ]
               </button>
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Full Name</label>
+            <label className="block text-[10px] font-bold text-[#ff2020] uppercase tracking-widest mb-2">{'>'} FULL_NAME:</label>
             <input
               type="text"
               required
               placeholder="e.g. John Doe"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full bg-slate-900/50 border border-slate-700/50 px-4 py-3 rounded-xl text-sm font-medium text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+              className="terminal-input w-full"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Email Address</label>
+            <label className="block text-[10px] font-bold text-[#ff2020] uppercase tracking-widest mb-2">{'>'} EMAIL_ADDRESS:</label>
             <input
               type="email"
               required
               placeholder="name@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-slate-900/50 border border-slate-700/50 px-4 py-3 rounded-xl text-sm font-medium text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+              className="terminal-input w-full"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Secure Password</label>
+            <label className="block text-[10px] font-bold text-[#ff2020] uppercase tracking-widest mb-2">{'>'} SECURE_PASSWORD:</label>
             <input
               type="password"
               required
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-slate-900/50 border border-slate-700/50 px-4 py-3 rounded-xl text-sm font-medium text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+              className="terminal-input w-full"
             />
           </div>
 
           {/* Role dependent details */}
           {role === "student" ? (
             <div>
-              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">University / College</label>
+              <label className="block text-[10px] font-bold text-[#ff2020] uppercase tracking-widest mb-2">{'>'} UNIVERSITY_COLLEGE:</label>
               <input
                 type="text"
                 required
                 placeholder="e.g. Stanford University"
                 value={college}
                 onChange={(e) => setCollege(e.target.value)}
-                className="w-full bg-slate-900/50 border border-slate-700/50 px-4 py-3 rounded-xl text-sm font-medium text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+                className="terminal-input w-full"
               />
             </div>
           ) : (
             <div>
-              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Company Name</label>
+              <label className="block text-[10px] font-bold text-[#ff2020] uppercase tracking-widest mb-2">{'>'} COMPANY_NAME:</label>
               <input
                 type="text"
                 required
                 placeholder="e.g. Acme Corp"
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
-                className="w-full bg-slate-900/50 border border-slate-700/50 px-4 py-3 rounded-xl text-sm font-medium text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+                className="terminal-input w-full"
               />
             </div>
           )}
@@ -185,16 +184,16 @@ export default function Register() {
           <button
             type="submit"
             disabled={loading}
-            className="glass-button w-full mt-4 py-4 text-white text-sm font-bold uppercase tracking-widest flex items-center justify-center disabled:opacity-50"
+            className="terminal-button w-full mt-6 py-4 text-xs font-bold uppercase tracking-widest flex items-center justify-center disabled:opacity-30 border border-[#ff2020] hover:bg-[#ff2020] hover:text-black transition-colors"
           >
-            {loading ? "INITIALIZING..." : "REGISTER"}
+            {loading ? "[ PROCESSING_INITIALIZATION... ]" : "[ EXECUTE_REGISTRATION ]"}
           </button>
         </form>
 
-        <div className="mt-8 text-center text-sm font-medium text-slate-400">
-          Already registered?{" "}
-          <Link href="/auth/login" className="text-indigo-400 font-bold hover:text-indigo-300 transition-colors">
-            Log In here
+        <div className="mt-10 text-center text-xs font-bold text-[#888888] tracking-widest uppercase">
+          ENTITY ALREADY EXISTS?{" "}
+          <Link href="/auth/login" className="text-[#ff2020] hover:text-white transition-colors underline underline-offset-4">
+            [ AUTHENTICATE_HERE ]
           </Link>
         </div>
       </div>
