@@ -138,7 +138,7 @@ export default function AssessmentArena() {
                   type="text"
                   value={skillsText}
                   onChange={(e) => setSkillsText(e.target.value)}
-                  className="w-full bg-white/5 border border-[#ff2020]/30 rounded-none px-3 py-2.5 text-sm text-white focus:outline-none focus:border-brand-purple transition"
+                  className="terminal-input w-full"
                   placeholder="e.g. React, Next.js, Solidity"
                 />
               </div>
@@ -215,7 +215,7 @@ export default function AssessmentArena() {
                           rows={12}
                           value={codingAnswer}
                           onChange={(e) => setCodingAnswer(e.target.value)}
-                          className="w-full bg-[#030616] p-4 text-sm font-mono text-brand-blue focus:outline-none resize-none leading-relaxed"
+                          className="w-full terminal-textarea p-4 resize-none leading-relaxed"
                           style={{ fontFamily: "'JetBrains Mono', monospace" }}
                         />
                       </div>

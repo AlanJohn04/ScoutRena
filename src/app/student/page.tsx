@@ -295,7 +295,7 @@ export default function StudentDashboard() {
               value={resumeText}
               onChange={(e) => setResumeText(e.target.value)}
               placeholder="Paste your resume content, projects, achievements, and Github links here..."
-              className="w-full bg-black border-[#ff2020]/20 border border-slate-700/50 p-4 rounded-none text-base font-medium text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all resize-none mb-6 shadow-inner"
+              className="w-full terminal-textarea p-4 resize-none mb-6"
             />
             
             <button

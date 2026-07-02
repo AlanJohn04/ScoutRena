@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import LiveTicker from "@/components/LiveTicker";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -54,9 +53,6 @@ export default function RootLayout({
 
         {/* Central Application Window wrapper */}
         <div className="w-full max-w-[1280px] mx-auto min-h-screen bg-black border-x border-[#ff2020]/30 flex flex-col relative shadow-[0_0_150px_rgba(255,32,32,0.05)]">
-          {/* Bloomberg-style scrolling tickers at the top (Refined) */}
-          <LiveTicker />
-          
           {/* Top Navbar */}
           <Navbar />
 

@@ -350,7 +350,7 @@ export default function PublicStudentProfile() {
                     min={candidate.highestBid + 100}
                     value={bidAmount}
                     onChange={(e) => setBidAmount(e.target.value)}
-                    className="w-full bg-slate-800/50 border border-[#ff2020]/30 rounded-none px-3 py-2 text-base text-white focus:outline-none focus:border-brand-amber transition font-semibold mono-font"
+                    className="terminal-input w-full px-3 py-2 font-semibold mono-font"
                   />
                   <span className="text-[10px] text-white/40 mt-1 block">
                     Your Wallet: {currentUser.tokenBalance?.toLocaleString()} TT

@@ -82,7 +82,7 @@ export default function CandidateDiscovery() {
             placeholder="Search by name, skills, role, or college..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-white/5 border border-[#ff2020]/30 rounded-none pl-10 pr-4 py-3 text-base text-white focus:outline-none focus:border-brand-blue transition"
+            className="terminal-input w-full pl-10 pr-4 py-3"
           />
         </div>
 
