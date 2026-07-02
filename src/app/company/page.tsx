@@ -15,11 +15,13 @@ import {
   Sparkles,
   TrendingUp,
   Activity,
-  ArrowRight
+  ArrowRight,
+  Download
 } from "lucide-react";
 import Link from "next/link";
 import { getProvider, getScoutRenaMarketContract, getSigner, formatTT, getTalentTokenContract } from "@/lib/blockchain";
 import { ethers } from "ethers";
+import * as XLSX from "xlsx";
 
 export default function CompanyDashboard() {
   const router = useRouter();
@@ -58,6 +60,20 @@ export default function CompanyDashboard() {
       followingCandidates: []
     };
     setCompanyDetails(comp);
+
+    // Fetch actual wallet balance
+    const fetchWalletData = async () => {
+      try {
+        const signer = await getSigner();
+        const address = await signer.getAddress();
+        const tokenContract = getTalentTokenContract(signer);
+        const balance = await tokenContract.balanceOf(address);
+        setCompanyDetails((prev: any) => ({ ...prev, tokenBalance: Number(formatTT(balance)) }));
+      } catch (error) {
+        console.error("Could not fetch wallet balance", error);
+      }
+    };
+    fetchWalletData();
   }, []);
 
   useEffect(() => {
@@ -119,13 +135,13 @@ export default function CompanyDashboard() {
       
       console.log("Tokens minted successfully!");
 
-      const addedAmount = 10000;
-      const updatedBalance = (companyDetails.tokenBalance || 0) + addedAmount;
+      const newBalance = await tokenContract.balanceOf(await signer.getAddress());
+      const updatedBalance = Number(formatTT(newBalance));
       
       const updatedCompany = { ...companyDetails, tokenBalance: updatedBalance };
       setCompanyDetails(updatedCompany);
 
-      // Save back
+      // Save back to cache
       user.tokenBalance = updatedBalance;
       localStorage.setItem("scoutrena_current_user", JSON.stringify(user));
       const users = JSON.parse(localStorage.getItem("scoutrena_users") || "{}");
@@ -172,6 +188,50 @@ export default function CompanyDashboard() {
     alert(`Successfully canceled bid. Escrow refund of ${bid.amount} TT returned to wallet.`);
   };
 
+  const handleExportRankings = () => {
+    if (candidates.length === 0) return;
+
+    // Rank candidates based on a combination of Potential Score and Current Market Value
+    const rankedCandidates = [...candidates].sort((a, b) => {
+      // 60% weight to potential score, 40% weight to normalized market value
+      const scoreA = (a.potentialScore * 0.6) + ((a.currentValue / 10000) * 100 * 0.4);
+      const scoreB = (b.potentialScore * 0.6) + ((b.currentValue / 10000) * 100 * 0.4);
+      return scoreB - scoreA;
+    });
+
+    const exportData = rankedCandidates.map((c, index) => ({
+      Rank: index + 1,
+      Name: c.name,
+      Role: c.role,
+      "Talent Value (TT)": c.currentValue,
+      "Future Potential (CPI)": c.potentialScore,
+      "Problem Solving": c.cpiDetails.problemSolving || c.cpiDetails.technicalAbility,
+      "Engineering": c.cpiDetails.engineering || c.cpiDetails.consistency,
+      "Learning Agility": c.cpiDetails.learningAgility || c.cpiDetails.learningVelocity,
+      "Innovation": c.cpiDetails.innovation || c.cpiDetails.projectOriginality,
+      "Collaboration": c.cpiDetails.collaboration || c.cpiDetails.behavior,
+      "Delivery": c.cpiDetails.delivery || c.cpiDetails.adaptability,
+      "Domain Expertise": c.cpiDetails.domainExpertise || c.cpiDetails.communityContribution,
+      "Blue Lock Insight": c.insights
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(exportData);
+    
+    // Set column widths
+    const wscols = [
+      {wch: 6}, {wch: 20}, {wch: 25}, {wch: 18}, {wch: 22}, 
+      {wch: 15}, {wch: 15}, {wch: 16}, {wch: 15}, {wch: 15}, 
+      {wch: 15}, {wch: 18}, {wch: 50}
+    ];
+    worksheet['!cols'] = wscols;
+
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Candidate Rankings");
+    
+    XLSX.writeFile(workbook, "ScoutRena_Talent_Rankings.xlsx");
+  };
+
+
   if (!companyDetails || !user) {
     return <div className="min-h-screen flex items-center justify-center text-[#888888] text-base font-semibold tracking-widest uppercase">Loading Recruiter Console...</div>;
   }
@@ -186,7 +246,7 @@ export default function CompanyDashboard() {
       <div className="absolute bottom-[20%] right-[10%] w-[40%] h-[40%] bg-black rounded-none blur-[120px] pointer-events-none -z-10"></div>
 
       {/* Header */}
-      <div className="flex justify-between items-center border-b border-[#ff2020]/30 pb-6 z-10">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-[#ff2020]/30 pb-6 z-10 gap-4">
         <div>
           <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight flex items-center gap-3">
             <Building2 className="text-[#ff2020] w-8 h-8" />
@@ -196,6 +256,14 @@ export default function CompanyDashboard() {
             {companyDetails.name} | Bid management & Radar
           </p>
         </div>
+        
+        <button
+          onClick={handleExportRankings}
+          className="terminal-button flex items-center gap-2 py-3 px-6 shadow-none text-white font-bold uppercase tracking-widest bg-[#10b981]/10 border-[#10b981]/40 hover:bg-[#10b981]/20 hover:border-[#10b981]"
+        >
+          <Download className="w-5 h-5" />
+          Export Rankings (XLSX)
+        </button>
       </div>
 
       {/* Overview Cards */}
@@ -248,9 +316,9 @@ export default function CompanyDashboard() {
               <Link
                 key={gem.id}
                 href={`/student/${gem.id}`}
-                className="py-3 px-6 bg-[#ff2020] text-black text-white hover:bg-indigo-500 rounded-none text-sm font-bold flex items-center gap-2 uppercase tracking-widest transition-transform hover:-translate-y-1 shadow-none border border-[#ff2020]/40"
+                className="terminal-button flex items-center gap-2 shadow-none"
               >
-                Bid {gem.name} ({gem.currentValue} TT)
+                [ BID_{gem.name.toUpperCase().replace(/\s+/g, '_')} : {gem.currentValue}_TT ]
                 <ArrowRight className="w-4 h-4 stroke-[3]" />
               </Link>
             ))}
@@ -295,9 +363,9 @@ export default function CompanyDashboard() {
                       </span>
                       <button
                         onClick={() => cancelMockBid(bid.candidateId)}
-                        className="py-2.5 px-4 bg-black border-[#ff2020]/20 hover:bg-rose-500/20 hover:text-[#ff2020] rounded-none border border-[#ff2020]/30 hover:border-[#ff2020]/30 text-xs font-bold tracking-widest text-[#cccccc] uppercase transition-colors"
+                        className="terminal-button text-xs py-2 px-3"
                       >
-                        Cancel & Refund
+                        [ CANCEL_REFUND ]
                       </button>
                     </div>
                   </div>

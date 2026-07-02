@@ -1,11 +1,11 @@
 export interface CPIIndex {
-  technicalAbility: number;
-  learningVelocity: number;
-  consistency: number;
-  projectOriginality: number;
-  communityContribution: number;
-  behavior: number;
-  adaptability: number;
+  problemSolving: number;
+  engineering: number;
+  learningAgility: number;
+  innovation: number;
+  collaboration: number;
+  delivery: number;
+  domainExpertise: number;
 }
 
 export interface ParsedResumeResult {

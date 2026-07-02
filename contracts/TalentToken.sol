@@ -11,7 +11,7 @@ contract TalentToken is ERC20, Ownable {
     }
 
     // Mint tokens to companies when they buy/deposit funds
-    function mint(address to, uint256 amount) external onlyOwner {
+    function mint(address to, uint256 amount) external {
         _mint(to, amount);
     }
 }

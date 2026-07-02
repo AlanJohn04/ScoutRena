@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { mockCandidates, Candidate } from "@/data/mock-candidates";
-import { getCurrentUserProfile, UserProfile } from "@/lib/firebase";
+import { getCurrentUserProfile, UserProfile, db } from "@/lib/firebase";
+import { doc, setDoc } from "firebase/firestore";
 import { 
   ResponsiveContainer, 
   AreaChart, 
@@ -28,7 +29,7 @@ import {
   GitBranch,
   Play
 } from "lucide-react";
-import { getProvider, getSigner, getScoutRenaMarketContract, getTalentTokenContract, parseTT } from "@/lib/blockchain";
+import { getProvider, getSigner, getScoutRenaMarketContract, getTalentTokenContract, parseTT, formatTT } from "@/lib/blockchain";
 
 export default function PublicStudentProfile() {
   const params = useParams();
@@ -42,11 +43,27 @@ export default function PublicStudentProfile() {
   const [bidAmount, setBidAmount] = useState<string>("500");
   const [bidding, setBidding] = useState<boolean>(false);
   const [bidsList, setBidsList] = useState<any[]>([]);
+  const [walletBalance, setWalletBalance] = useState<number | null>(null);
 
   useEffect(() => {
     // Load current user profile
     const profile = getCurrentUserProfile();
     setCurrentUser(profile);
+
+    if (profile && profile.role === "company") {
+      const fetchBalance = async () => {
+        try {
+          const signer = await getSigner();
+          const address = await signer.getAddress();
+          const tokenContract = getTalentTokenContract(signer);
+          const balance = await tokenContract.balanceOf(address);
+          setWalletBalance(Number(formatTT(balance)));
+        } catch (error) {
+          console.error("Could not fetch wallet balance", error);
+        }
+      };
+      fetchBalance();
+    }
 
     // Load candidate based on URL id parameter
     const id = params.id as string;
@@ -96,10 +113,10 @@ export default function PublicStudentProfile() {
       return;
     }
 
-    // Check token balance
-    const currentBalance = currentUser.tokenBalance || 0;
+    // Check token balance from chain or fallback
+    const currentBalance = walletBalance !== null ? walletBalance : (currentUser.tokenBalance || 0);
     if (currentBalance < amount) {
-      alert("Insufficient Talent Token balance. Purchase more tokens from your console.");
+      alert("Insufficient Talent Token balance in your wallet. Purchase more tokens from your console.");
       return;
     }
 
@@ -142,8 +159,15 @@ export default function PublicStudentProfile() {
         pendingBids: updatedBids
       };
       setCandidate(updatedCandidate);
+      
+      if (db) {
+        await setDoc(doc(db, "candidates", candidate!.id), updatedCandidate);
+      }
 
-      // Deduct from company balance in localStorage
+      // Update local wallet balance state
+      setWalletBalance(currentBalance - amount);
+
+      // Deduct from company balance in localStorage (as a fallback/cache)
       const newBalance = currentBalance - amount;
       currentUser.tokenBalance = newBalance;
       localStorage.setItem("scoutrena_current_user", JSON.stringify(currentUser));
@@ -171,6 +195,10 @@ export default function PublicStudentProfile() {
         pendingBids: updatedBids
       };
       setCandidate(updatedCandidate);
+      
+      if (db) {
+        await setDoc(doc(db, "candidates", candidate!.id), updatedCandidate);
+      }
       const newBalance = currentBalance - amount;
       currentUser.tokenBalance = newBalance;
       localStorage.setItem("scoutrena_current_user", JSON.stringify(currentUser));
@@ -189,15 +217,14 @@ export default function PublicStudentProfile() {
     return <div className="text-center py-20 text-white/50">Candidate not found.</div>;
   }
 
-  // Format Recharts CPI radar data
   const radarData = [
-    { subject: "Technical", value: candidate.cpiDetails.technicalAbility, fullMark: 100 },
-    { subject: "Velocity", value: candidate.cpiDetails.learningVelocity, fullMark: 100 },
-    { subject: "Consistency", value: candidate.cpiDetails.consistency, fullMark: 100 },
-    { subject: "Originality", value: candidate.cpiDetails.projectOriginality, fullMark: 100 },
-    { subject: "Community", value: candidate.cpiDetails.communityContribution, fullMark: 100 },
-    { subject: "Behavior", value: candidate.cpiDetails.behavior, fullMark: 100 },
-    { subject: "Adaptability", value: candidate.cpiDetails.adaptability, fullMark: 100 },
+    { subject: "Problem Solving", value: candidate.cpiDetails.problemSolving, fullMark: 100 },
+    { subject: "Engineering", value: candidate.cpiDetails.engineering, fullMark: 100 },
+    { subject: "Learning Agility", value: candidate.cpiDetails.learningAgility, fullMark: 100 },
+    { subject: "Innovation", value: candidate.cpiDetails.innovation, fullMark: 100 },
+    { subject: "Collaboration", value: candidate.cpiDetails.collaboration, fullMark: 100 },
+    { subject: "Delivery", value: candidate.cpiDetails.delivery, fullMark: 100 },
+    { subject: "Domain Expertise", value: candidate.cpiDetails.domainExpertise, fullMark: 100 },
   ];
 
   // Blind Mode translations
@@ -221,23 +248,21 @@ export default function PublicStudentProfile() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setBlindMode(!blindMode)}
-            className="flex items-center gap-2 py-2 px-4 rounded-none bg-zinc-900 border border-[#ff2020]/20 hover:bg-zinc-800 text-base font-medium text-white transition-all cursor-pointer shadow-sm"
+            className="terminal-button flex items-center gap-2"
           >
-            {blindMode ? <Eye className="w-4 h-4 text-[#ff2020]" /> : <EyeOff className="w-4 h-4 text-[#ff2020]" />}
-            {blindMode ? "Disable Blind Mode" : "Enable Blind Mode"}
+            {blindMode ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+            {blindMode ? "DISABLE_BLIND_MODE" : "ENABLE_BLIND_MODE"}
           </button>
 
           {currentUser?.role === "company" && (
             <button
               onClick={handleFollowToggle}
-              className={`flex items-center gap-2 py-2 px-4 rounded-none text-base font-medium transition-all cursor-pointer shadow-sm ${
-                following 
-                  ? "bg-white/10 text-white border border-emerald-500/20 hover:bg-emerald-500/20" 
-                  : "bg-white text-black hover:bg-zinc-200"
+              className={`terminal-button flex items-center gap-2 ${
+                following ? "opacity-50" : ""
               }`}
             >
               <UserCheck className="w-4 h-4" />
-              {following ? "Following" : "Follow Candidate"}
+              {following ? "[ TRACKING_ACTIVE ]" : "[ INITIATE_TRACKING ]"}
             </button>
           )}
         </div>
@@ -341,7 +366,11 @@ export default function PublicStudentProfile() {
               </div>
             </div>
 
-            {currentUser?.role === "company" ? (
+            {candidate.acceptedOffer ? (
+              <div className="p-4 bg-emerald-950/40 border border-emerald-500/30 text-emerald-400 text-center text-xs font-bold uppercase tracking-wider">
+                🎉 POSITION SECURED AT {candidate.acceptedOffer.company.toUpperCase()} FOR {candidate.acceptedOffer.amount} TT [OFFER ACCEPTED]
+              </div>
+            ) : currentUser?.role === "company" ? (
               <div className="flex flex-col gap-3">
                 <div>
                   <label className="block text-xs font-bold text-white/60 uppercase tracking-wider mb-1">Bid Amount (TT)</label>
@@ -353,16 +382,16 @@ export default function PublicStudentProfile() {
                     className="terminal-input w-full px-3 py-2 font-semibold mono-font"
                   />
                   <span className="text-[10px] text-white/40 mt-1 block">
-                    Your Wallet: {currentUser.tokenBalance?.toLocaleString()} TT
+                    Your Wallet: {walletBalance !== null ? walletBalance.toLocaleString() : currentUser.tokenBalance?.toLocaleString()} TT
                   </span>
                 </div>
 
                 <button
                   onClick={handlePlaceBid}
                   disabled={bidding}
-                  className="w-full py-2.5 rounded-none text-sm font-bold text-[#030616] bg-brand-amber hover:opacity-95 disabled:opacity-50 transition cursor-pointer flex items-center justify-center gap-1 shadow-none shadow-brand-amber/10"
+                  className="terminal-button w-full flex items-center justify-center gap-2"
                 >
-                  {bidding ? "TRANSACTING ON CHAIN..." : "SUBMIT TRANSFER BID"}
+                  {bidding ? "[ TRANSACTING_ON_CHAIN... ]" : "[ SUBMIT_TRANSFER_BID ]"}
                 </button>
               </div>
             ) : (

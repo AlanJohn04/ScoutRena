@@ -16,6 +16,35 @@ export function getProvider() {
 export async function getSigner() {
   const provider = getProvider();
   if (provider instanceof ethers.BrowserProvider) {
+    // Force MetaMask to use Chain ID 31337 (0x7a69) to match the node
+    try {
+      await provider.send("wallet_switchEthereumChain", [{ chainId: "0x7a69" }]);
+    } catch (switchError: any) {
+      // In ethers v6, the actual provider error is wrapped. We check if the message or nested error code implies 4902.
+      const errorStr = String(switchError);
+      if (errorStr.includes("4902") || switchError.code === 4902 || switchError?.error?.code === 4902) {
+        try {
+          await provider.send("wallet_addEthereumChain", [
+            {
+              chainId: "0x7a69",
+              chainName: "Localhost 31337",
+              rpcUrls: [LOCAL_RPC_URL],
+              nativeCurrency: {
+                name: "ETH",
+                symbol: "ETH",
+                decimals: 18,
+              },
+            },
+          ]);
+        } catch (addError) {
+          console.error("Failed to add Localhost 31337 network to MetaMask", addError);
+        }
+      } else {
+        console.error("Failed to switch to Localhost 31337 network in MetaMask", switchError);
+      }
+    }
+
+    await provider.send("eth_requestAccounts", []);
     return await provider.getSigner();
   }
   // Fallback to Hardhat Account #0 for local server-side operations / mock simulation

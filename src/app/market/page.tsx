@@ -162,7 +162,7 @@ export default function MarketTradingFloor() {
 
                   <Link 
                     href={`/student/${candidate.id}`}
-                    className="w-full text-center py-2.5 bg-transparent border border-white hover:bg-white hover:text-black text-sm font-bold text-white uppercase tracking-widest transition-colors mt-2"
+                    className="terminal-button w-full text-center mt-2 flex items-center justify-center text-xs"
                   >
                     [ VIEW_DOSSIER ]
                   </Link>

@@ -3,15 +3,19 @@ import React, { useState } from "react";
 import { mockCandidates } from "@/data/mock-candidates";
 import { Trophy, Shield, Award, Zap, Flame } from "lucide-react";
 import Link from "next/link";
+import { useCandidates } from "@/hooks/useCandidates";
 
 export default function RankingsLeaderboard() {
   const [activeTab, setActiveTab] = useState<"global" | "college" | "domain" | "rising">("global");
   const [selectedDomain, setSelectedDomain] = useState<string>("All");
+  const { candidates, loading } = useCandidates();
 
-  // Ranks calculation
-  const sortedGlobal = [...mockCandidates].sort((a, b) => b.cpi - a.cpi);
-  const sortedValue = [...mockCandidates].sort((a, b) => b.currentValue - a.currentValue);
-  const sortedRising = [...mockCandidates].sort((a, b) => b.growthRate - a.growthRate);
+  const listToRank = candidates.length > 0 ? candidates : mockCandidates;
+
+  // Ranks calculation - Rank primarily by currentValue (which represents overall bidded market value)
+  const sortedGlobal = [...listToRank].sort((a, b) => b.currentValue - a.currentValue);
+  const sortedValue = [...listToRank].sort((a, b) => b.currentValue - a.currentValue);
+  const sortedRising = [...listToRank].sort((a, b) => b.growthRate - a.growthRate);
 
   // Group by college rankings
   const colleges = ["CUSAT", "IIT Madras", "VIT Vellore"];
@@ -87,11 +91,14 @@ export default function RankingsLeaderboard() {
 
       {/* Tab Contents */}
       <div className="terminal-panel p-6">
-        
-        {/* Global tab */}
-        {activeTab === "global" && (
-          <div className="flex flex-col gap-4">
-            <h3 className="text-xs font-bold text-white/40 uppercase tracking-widest mb-2">Top Talent Ranked by CPI potential</h3>
+        {loading ? (
+          <div className="text-center py-20 text-white/40 font-mono tracking-widest uppercase">Syncing Leaderboard with Blockchain Ledger...</div>
+        ) : (
+          <>
+            {/* Global tab */}
+            {activeTab === "global" && (
+              <div className="flex flex-col gap-4">
+                <h3 className="text-xs font-bold text-white/40 uppercase tracking-widest mb-2">Top Talent Ranked by overall bidded Market Value (TT)</h3>
             <div className="flex flex-col gap-2">
               {sortedGlobal.map((candidate, idx) => (
                 <div key={candidate.id} className="flex items-center justify-between p-4 rounded-none bg-white/2 border border-[#ff2020]/20 hover:border-brand-blue/20 transition group">
@@ -213,50 +220,51 @@ export default function RankingsLeaderboard() {
           </div>
         )}
 
-        {/* Rising stars */}
-        {activeTab === "rising" && (
-          <div className="flex flex-col gap-4">
-            <h3 className="text-xs font-bold text-white/40 uppercase tracking-widest mb-2 flex items-center gap-1.5">
-              <Flame className="text-brand-pink w-4 h-4" /> Top Movers this Week (Percentage Growth)
-            </h3>
-            <div className="flex flex-col gap-2">
-              {sortedRising.map((candidate, idx) => (
-                <div key={candidate.id} className="flex items-center justify-between p-4 rounded-none bg-white/2 border border-[#ff2020]/20 hover:border-brand-blue/20 transition group">
-                  <div className="flex items-center gap-4">
-                    <span className="w-8 h-8 rounded-none flex items-center justify-center font-bold text-xs bg-brand-pink/10 text-brand-pink">
-                      +{candidate.growthRate}%
-                    </span>
-                    <img src={candidate.avatar} alt={candidate.name} className="w-10 h-10 rounded-none object-cover" />
-                    <div>
-                      <h4 className="text-sm font-bold text-white group-hover:text-brand-blue transition">{candidate.name}</h4>
-                      <p className="text-[10px] text-white/40">{candidate.college} | {candidate.role}</p>
-                    </div>
-                  </div>
+            {/* Rising stars */}
+            {activeTab === "rising" && (
+              <div className="flex flex-col gap-4">
+                <h3 className="text-xs font-bold text-white/40 uppercase tracking-widest mb-2 flex items-center gap-1.5">
+                  <Flame className="text-brand-pink w-4 h-4" /> Top Movers this Week (Percentage Growth)
+                </h3>
+                <div className="flex flex-col gap-2">
+                  {sortedRising.map((candidate, idx) => (
+                    <div key={candidate.id} className="flex items-center justify-between p-4 rounded-none bg-white/2 border border-[#ff2020]/20 hover:border-brand-blue/20 transition group">
+                      <div className="flex items-center gap-4">
+                        <span className="w-8 h-8 rounded-none flex items-center justify-center font-bold text-xs bg-brand-pink/10 text-brand-pink">
+                          +{candidate.growthRate}%
+                        </span>
+                        <img src={candidate.avatar} alt={candidate.name} className="w-10 h-10 rounded-none object-cover" />
+                        <div>
+                          <h4 className="text-sm font-bold text-white group-hover:text-brand-blue transition">{candidate.name}</h4>
+                          <p className="text-[10px] text-white/40">{candidate.college} | {candidate.role}</p>
+                        </div>
+                      </div>
 
-                  <div className="flex items-center gap-8 text-right">
-                    <div>
-                      <span className="text-[10px] text-white/40 uppercase tracking-widest block font-medium">Previous Value</span>
-                      <span className="text-xs text-white/60 mono-font">
-                        {Math.round(candidate.currentValue / (1 + candidate.growthRate / 100))} TT
-                      </span>
+                      <div className="flex items-center gap-8 text-right">
+                        <div>
+                          <span className="text-[10px] text-white/40 uppercase tracking-widest block font-medium">Previous Value</span>
+                          <span className="text-xs text-white/60 mono-font">
+                            {Math.round(candidate.currentValue / (1 + candidate.growthRate / 100))} TT
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-white/40 uppercase tracking-widest block font-medium">New Value</span>
+                          <span className="text-sm font-bold text-brand-blue mono-font">{candidate.currentValue} TT</span>
+                        </div>
+                        <Link 
+                          href={`/student/${candidate.id}`}
+                          className="py-1.5 px-4 rounded bg-white/5 hover:bg-brand-blue hover:text-[#030616] text-[10px] font-bold text-white transition"
+                        >
+                          VIEW PROFILE
+                        </Link>
+                      </div>
                     </div>
-                    <div>
-                      <span className="text-[10px] text-white/40 uppercase tracking-widest block font-medium">New Value</span>
-                      <span className="text-sm font-bold text-brand-blue mono-font">{candidate.currentValue} TT</span>
-                    </div>
-                    <Link 
-                      href={`/student/${candidate.id}`}
-                      className="py-1.5 px-4 rounded bg-white/5 hover:bg-brand-blue hover:text-[#030616] text-[10px] font-bold text-white transition"
-                    >
-                      VIEW PROFILE
-                    </Link>
-                  </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
+              </div>
+            )}
+          </>
         )}
-
       </div>
     </div>
   );

@@ -252,9 +252,9 @@ export default function AssessmentArena() {
               <button
                 onClick={handleSubmitTest}
                 disabled={submitting}
-                className="w-full mt-2 py-3 rounded-none text-base font-bold text-[#030616] bg-brand-blue hover:bg-brand-blue/95 disabled:opacity-50 transition cursor-pointer flex items-center justify-center gap-1.5 shadow-none shadow-brand-blue/10"
+                className="terminal-button w-full mt-2 flex items-center justify-center gap-1.5"
               >
-                {submitting ? "SUBMITTING AND AI GRADING..." : "SUBMIT ARENA ANSWERS"}
+                {submitting ? "[ SUBMITTING_AND_AI_GRADING... ]" : "[ SUBMIT_ARENA_ANSWERS ]"}
               </button>
             </div>
           ) : (

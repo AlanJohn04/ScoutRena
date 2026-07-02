@@ -15,18 +15,19 @@ export interface Candidate {
   pendingBids: Array<{ company: string; amount: number; timestamp: string }>;
   skills: string[];
   cpiDetails: {
-    technicalAbility: number;
-    learningVelocity: number;
-    consistency: number;
-    projectOriginality: number;
-    communityContribution: number;
-    behavior: number;
-    adaptability: number;
+    problemSolving: number;
+    engineering: number;
+    learningAgility: number;
+    innovation: number;
+    collaboration: number;
+    delivery: number;
+    domainExpertise: number;
   };
   valueHistory: Array<{ date: string; value: number }>;
-  badges: Array<{ id: string; name: string; description: string; type: string; color: string; verified: boolean }>;
+  badges: Array<{ id: string; name: string; description: string; type: string; color: string; verified: boolean; imageURI?: string }>;
   compatibility: { [key: string]: number };
   insights: string;
+  acceptedOffer?: { company: string; amount: number; timestamp: string };
   githubStats: {
     commits: number;
     stars: number;
@@ -57,13 +58,13 @@ export const mockCandidates: Candidate[] = [
     ],
     skills: ["React", "TypeScript", "Node.js", "Docker", "Solidity", "Hardhat", "Go"],
     cpiDetails: {
-      technicalAbility: 95,
-      learningVelocity: 96,
-      consistency: 90,
-      projectOriginality: 92,
-      communityContribution: 85,
-      behavior: 90,
-      adaptability: 95
+      problemSolving: 95,
+      engineering: 96,
+      learningAgility: 90,
+      innovation: 92,
+      collaboration: 85,
+      delivery: 90,
+      domainExpertise: 95
     },
     valueHistory: [
       { date: "Jan", value: 2400 },
@@ -74,10 +75,10 @@ export const mockCandidates: Candidate[] = [
       { date: "Jun", value: 4200 }
     ],
     badges: [
-      { id: "b1", name: "First Blood", description: "First verified Solidity project", type: "First Blood", color: "#00ff88", verified: true },
-      { id: "b2", name: "Hackathon Warrior", description: "Won CUSAT Web3 Hackathon", type: "Hackathon Winner", color: "#00d4ff", verified: true },
-      { id: "b3", name: "Open Source Pioneer", description: "Merged PR in ethers.js", type: "Open Source", color: "#ffaa00", verified: true },
-      { id: "b4", name: "Streak Master", description: "42-day coding streak on Github", type: "Streak", color: "#ff3366", verified: true }
+      { id: "b1", name: "First Blood", description: "First verified Solidity project", type: "First Blood", color: "#00ff88", verified: true, imageURI: "https://scarlet-big-possum-145.mypinata.cloud/ipfs/bafkreicvjk2jjxapwz367fainadzmsefqlrw2pxuxc3rynkdanoa2oqtfu" },
+      { id: "b2", name: "Hackathon Warrior", description: "Won CUSAT Web3 Hackathon", type: "Hackathon Winner", color: "#00d4ff", verified: true, imageURI: "https://scarlet-big-possum-145.mypinata.cloud/ipfs/bafkreicd4klxcqzhv3kbzbn3otbqttosqox5h3qjbr474u7ogp2fyy3ysm" },
+      { id: "b3", name: "Open Source Pioneer", description: "Merged PR in ethers.js", type: "Open Source", color: "#ffaa00", verified: true, imageURI: "https://scarlet-big-possum-145.mypinata.cloud/ipfs/bafkreicvjk2jjxapwz367fainadzmsefqlrw2pxuxc3rynkdanoa2oqtfu" },
+      { id: "b4", name: "Streak Master", description: "42-day coding streak on Github", type: "Streak", color: "#ff3366", verified: true, imageURI: "https://scarlet-big-possum-145.mypinata.cloud/ipfs/bafkreicd4klxcqzhv3kbzbn3otbqttosqox5h3qjbr474u7ogp2fyy3ysm" }
     ],
     compatibility: {
       "Google": 98,
@@ -114,13 +115,13 @@ export const mockCandidates: Candidate[] = [
     ],
     skills: ["Python", "PyTorch", "Hugging Face", "Docker", "SQL", "FastAPI", "React"],
     cpiDetails: {
-      technicalAbility: 98,
-      learningVelocity: 99,
-      consistency: 95,
-      projectOriginality: 96,
-      communityContribution: 80,
-      behavior: 92,
-      adaptability: 96
+      problemSolving: 98,
+      engineering: 99,
+      learningAgility: 95,
+      innovation: 96,
+      collaboration: 80,
+      delivery: 92,
+      domainExpertise: 96
     },
     valueHistory: [
       { date: "Jan", value: 3100 },
@@ -131,9 +132,9 @@ export const mockCandidates: Candidate[] = [
       { date: "Jun", value: 5400 }
     ],
     badges: [
-      { id: "b5", name: "AI Master", description: "Created custom LLM fine-tuning repo", type: "AI Specialization", color: "#a855f7", verified: true },
-      { id: "b2", name: "Hackathon Warrior", description: "1st Place Smart India Hackathon", type: "Hackathon Winner", color: "#00d4ff", verified: true },
-      { id: "b6", name: "Blue Lock Elite", description: "Top 5 Global ML ranking", type: "Ranking", color: "#ffaa00", verified: true }
+      { id: "b5", name: "AI Master", description: "Created custom LLM fine-tuning repo", type: "AI Specialization", color: "#a855f7", verified: true, imageURI: "https://scarlet-big-possum-145.mypinata.cloud/ipfs/bafkreifyv25g6ljkb7evesvyl5eggwzo435yjyhse2gv2eggc6meyatjyi" },
+      { id: "b2", name: "Hackathon Warrior", description: "1st Place Smart India Hackathon", type: "Hackathon Winner", color: "#00d4ff", verified: true, imageURI: "https://scarlet-big-possum-145.mypinata.cloud/ipfs/bafkreicd4klxcqzhv3kbzbn3otbqttosqox5h3qjbr474u7ogp2fyy3ysm" },
+      { id: "b6", name: "Blue Lock Elite", description: "Top 5 Global ML ranking", type: "Ranking", color: "#ffaa00", verified: true, imageURI: "https://scarlet-big-possum-145.mypinata.cloud/ipfs/bafkreifyv25g6ljkb7evesvyl5eggwzo435yjyhse2gv2eggc6meyatjyi" }
     ],
     compatibility: {
       "Google": 99,
@@ -169,13 +170,13 @@ export const mockCandidates: Candidate[] = [
     ],
     skills: ["Javascript", "React", "Next.js", "Express", "PostgreSQL", "HTML/CSS"],
     cpiDetails: {
-      technicalAbility: 70,
-      learningVelocity: 94,
-      consistency: 65,
-      projectOriginality: 85,
-      communityContribution: 50,
-      behavior: 80,
-      adaptability: 88
+      problemSolving: 70,
+      engineering: 94,
+      learningAgility: 65,
+      innovation: 85,
+      collaboration: 50,
+      delivery: 80,
+      domainExpertise: 88
     },
     valueHistory: [
       { date: "Jan", value: 1800 },
@@ -186,8 +187,8 @@ export const mockCandidates: Candidate[] = [
       { date: "Jun", value: 3200 }
     ],
     badges: [
-      { id: "b1", name: "First Blood", description: "Created verified fullstack SaaS app", type: "First Blood", color: "#00ff88", verified: true },
-      { id: "b7", name: "Hidden Gem", description: "Discovered as high potential talent", type: "Hidden Gem", color: "#ffaa00", verified: true }
+      { id: "b1", name: "First Blood", description: "Created verified fullstack SaaS app", type: "First Blood", color: "#00ff88", verified: true, imageURI: "https://scarlet-big-possum-145.mypinata.cloud/ipfs/bafkreicd4klxcqzhv3kbzbn3otbqttosqox5h3qjbr474u7ogp2fyy3ysm" },
+      { id: "b7", name: "Hidden Gem", description: "Discovered as high potential talent", type: "Hidden Gem", color: "#ffaa00", verified: true, imageURI: "https://scarlet-big-possum-145.mypinata.cloud/ipfs/bafkreicvjk2jjxapwz367fainadzmsefqlrw2pxuxc3rynkdanoa2oqtfu" }
     ],
     compatibility: {
       "Google": 82,
@@ -223,13 +224,13 @@ export const mockCandidates: Candidate[] = [
     ],
     skills: ["Docker", "Kubernetes", "AWS", "Terraform", "CI/CD", "Bash", "Python"],
     cpiDetails: {
-      technicalAbility: 89,
-      learningVelocity: 90,
-      consistency: 88,
-      projectOriginality: 78,
-      communityContribution: 65,
-      behavior: 90,
-      adaptability: 92
+      problemSolving: 89,
+      engineering: 90,
+      learningAgility: 88,
+      innovation: 78,
+      collaboration: 65,
+      delivery: 90,
+      domainExpertise: 92
     },
     valueHistory: [
       { date: "Jan", value: 2800 },
@@ -240,8 +241,8 @@ export const mockCandidates: Candidate[] = [
       { date: "Jun", value: 3900 }
     ],
     badges: [
-      { id: "b8", name: "Cloud Guardian", description: "Created fully automated GitOps pipeline", type: "Infrastructure", color: "#3b82f6", verified: true },
-      { id: "b2", name: "Hackathon Warrior", description: "Won AWS Community Hack", type: "Hackathon Winner", color: "#00d4ff", verified: true }
+      { id: "b8", name: "Cloud Guardian", description: "Created fully automated GitOps pipeline", type: "Infrastructure", color: "#3b82f6", verified: true, imageURI: "https://scarlet-big-possum-145.mypinata.cloud/ipfs/bafkreicvjk2jjxapwz367fainadzmsefqlrw2pxuxc3rynkdanoa2oqtfu" },
+      { id: "b2", name: "Hackathon Warrior", description: "Won AWS Community Hack", type: "Hackathon Winner", color: "#00d4ff", verified: true, imageURI: "https://scarlet-big-possum-145.mypinata.cloud/ipfs/bafkreicd4klxcqzhv3kbzbn3otbqttosqox5h3qjbr474u7ogp2fyy3ysm" }
     ],
     compatibility: {
       "Google": 92,

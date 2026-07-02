@@ -8,13 +8,13 @@ const getMockResponse = (action: string, data: any) => {
   if (action === "parseResume") {
     return {
       cpi: {
-        technicalAbility: 82,
-        learningVelocity: 88,
-        consistency: 75,
-        projectOriginality: 80,
-        communityContribution: 60,
-        behavior: 85,
-        adaptability: 80,
+        problemSolving: 82,
+        engineering: 88,
+        learningAgility: 80,
+        innovation: 80,
+        collaboration: 85,
+        delivery: 75,
+        domainExpertise: 60,
       },
       skills: ["React", "TypeScript", "Node.js", "Docker", "MongoDB", "Solidity"],
       ambitionScore: 84,
@@ -83,13 +83,13 @@ export async function POST(request: Request) {
         "${data.resumeText}"
         
         Generate a Candidate Potential Index (CPI) score (out of 100) along with scores (0-100) for these 7 categories:
-        1. Technical Ability (weight 30)
-        2. Learning Velocity (weight 25)
-        3. Consistency (weight 15)
-        4. Project Originality (weight 10)
-        5. Community Contribution (weight 5)
-        6. Behavior (weight 10)
-        7. Adaptability (weight 5)
+        1. Problem Solving (Analytical Thinking) (weight 20)
+        2. Engineering (Code Quality/Architecture) (weight 20)
+        3. Learning Agility (weight 15)
+        4. Innovation (Product Sense) (weight 10)
+        5. Collaboration (Teamwork) (weight 15)
+        6. Delivery (Execution Speed) (weight 10)
+        7. Domain Expertise (weight 10)
         
         Also extract key technical skills.
         Provide a concise AI feedback advice for the candidate.
@@ -97,13 +97,13 @@ export async function POST(request: Request) {
         Return ONLY a raw JSON object matching this schema:
         {
           "cpi": {
-            "technicalAbility": number,
-            "learningVelocity": number,
-            "consistency": number,
-            "projectOriginality": number,
-            "communityContribution": number,
-            "behavior": number,
-            "adaptability": number
+            "problemSolving": number,
+            "engineering": number,
+            "learningAgility": number,
+            "innovation": number,
+            "collaboration": number,
+            "delivery": number,
+            "domainExpertise": number
           },
           "skills": string[],
           "ambitionScore": number,

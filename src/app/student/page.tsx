@@ -1,7 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { getCurrentUserProfile, updateProfile, UserProfile } from "@/lib/firebase";
+import { getCurrentUserProfile, updateProfile, UserProfile, db } from "@/lib/firebase";
+import { doc, setDoc } from "firebase/firestore";
 import { useCandidates } from "@/hooks/useCandidates";
 import { 
   ResponsiveContainer, 
@@ -21,7 +22,8 @@ import {
   CheckCircle,
   Lightbulb, 
   BrainCircuit, 
-  ArrowUpRight 
+  ArrowUpRight,
+  Coins
 } from "lucide-react";
 import { parseResume } from "@/lib/ai-engine";
 
@@ -34,7 +36,36 @@ export default function StudentDashboard() {
   // Resume uploading states
   const [resumeText, setResumeText] = useState("");
   const [parsing, setParsing] = useState(false);
-  const [parseSuccess, setParseSuccess] = useState(false);
+  const [parseSuccess, setParseSuccess] = useState<boolean>(false);
+  
+  const handleAcceptOffer = async (bid: { company: string; amount: number }) => {
+    if (!confirm(`Are you sure you want to accept the offer of ${bid.amount} TT from ${bid.company}? This will secure your position and lock the offer.`)) {
+      return;
+    }
+
+    try {
+      const updatedDetails = {
+        ...profileData,
+        currentValue: bid.amount, // Set valuation to accepted bid amount
+        acceptedOffer: {
+          company: bid.company,
+          amount: bid.amount,
+          timestamp: new Date().toISOString().split("T")[0]
+        }
+      };
+
+      setProfileData(updatedDetails);
+
+      if (db) {
+        await setDoc(doc(db, "candidates", profileData.id), updatedDetails);
+      }
+
+      alert(`Congratulations! You have accepted ${bid.company}'s offer of ${bid.amount} TT. Your placement is now secured.`);
+    } catch (error) {
+      console.error("Error accepting offer:", error);
+      alert("Failed to accept offer. Please check console logs.");
+    }
+  };
   
   useEffect(() => {
     const profile = getCurrentUserProfile();
@@ -175,13 +206,13 @@ export default function StudentDashboard() {
 
   // Format Recharts CPI radar data
   const radarData = [
-    { subject: "Technical", value: profileData.cpiDetails.technicalAbility, fullMark: 100 },
-    { subject: "Velocity", value: profileData.cpiDetails.learningVelocity, fullMark: 100 },
-    { subject: "Consistency", value: profileData.cpiDetails.consistency, fullMark: 100 },
-    { subject: "Originality", value: profileData.cpiDetails.projectOriginality, fullMark: 100 },
-    { subject: "Community", value: profileData.cpiDetails.communityContribution, fullMark: 100 },
-    { subject: "Behavior", value: profileData.cpiDetails.behavior, fullMark: 100 },
-    { subject: "Adaptability", value: profileData.cpiDetails.adaptability, fullMark: 100 },
+    { subject: "Problem Solving", value: profileData.cpiDetails.problemSolving, fullMark: 100 },
+    { subject: "Engineering", value: profileData.cpiDetails.engineering, fullMark: 100 },
+    { subject: "Learning Agility", value: profileData.cpiDetails.learningAgility, fullMark: 100 },
+    { subject: "Innovation", value: profileData.cpiDetails.innovation, fullMark: 100 },
+    { subject: "Collaboration", value: profileData.cpiDetails.collaboration, fullMark: 100 },
+    { subject: "Delivery", value: profileData.cpiDetails.delivery, fullMark: 100 },
+    { subject: "Domain Expertise", value: profileData.cpiDetails.domainExpertise, fullMark: 100 },
   ];
 
   return (
@@ -260,7 +291,11 @@ export default function StudentDashboard() {
                   className="p-5 bg-black border-[#ff2020]/20 border border-[#ff2020]/20 rounded-none text-center flex flex-col items-center gap-3 hover:-translate-y-1 transition-transform group shadow-none"
                   style={{ borderTop: `2px solid ${badge.color}` }}
                 >
-                  <Award className="w-8 h-8 transition-transform group-hover:scale-110 drop-shadow-[0_0_10px_currentColor]" style={{ color: badge.color }} />
+                  {badge.imageURI ? (
+                    <img src={badge.imageURI} alt={badge.name} className="w-12 h-12 transition-transform group-hover:scale-110 object-contain rounded-md" />
+                  ) : (
+                    <Award className="w-8 h-8 transition-transform group-hover:scale-110 drop-shadow-[0_0_10px_currentColor]" style={{ color: badge.color }} />
+                  )}
                   <h4 className="text-base font-bold text-white">{badge.name}</h4>
                   <p className="text-xs text-[#888888] font-semibold">{badge.description}</p>
                   <span className="text-[10px] font-bold text-white bg-white/10 border border-emerald-500/20 px-3 py-1 uppercase tracking-widest mt-2 rounded-none">
@@ -335,6 +370,46 @@ export default function StudentDashboard() {
                 <span className="font-bold text-white text-2xl mono-font">{profileData.cpiDetails.learningVelocity}<span className="text-slate-600 text-sm">/100</span></span>
               </div>
             </div>
+          </div>
+
+          {/* Active Offers & Placement Status */}
+          <div className="terminal-panel p-8">
+            <h3 className="text-xl font-bold text-white tracking-wide mb-6 flex items-center gap-2">
+              <Coins className="text-[#ff2020] w-5 h-5" /> Active Transfer Bids & Job Offers
+            </h3>
+            {profileData.acceptedOffer ? (
+              <div className="p-5 bg-emerald-950/40 border border-emerald-500/30 text-center flex flex-col gap-3 rounded-none">
+                <span className="text-emerald-400 font-extrabold text-lg uppercase tracking-wider">🎉 Placement Secured!</span>
+                <p className="text-sm text-white/80">
+                  You accepted the offer from <span className="font-bold text-white">{profileData.acceptedOffer.company}</span> for <span className="font-bold text-emerald-400">{profileData.acceptedOffer.amount} TT</span>.
+                </p>
+                <span className="text-xs text-white/40 uppercase font-mono mt-1">Smart Contract Escrow Locked • Hired</span>
+              </div>
+            ) : !profileData.pendingBids || profileData.pendingBids.length === 0 ? (
+              <div className="text-center py-10 text-[#888888] text-sm font-semibold tracking-widest uppercase border border-dashed border-[#ff2020]/20 rounded-none">
+                No active bids placed on your profile yet. Build your portfolio to attract recruiter bids!
+              </div>
+            ) : (
+              <div className="flex flex-col gap-4">
+                {profileData.pendingBids.map((bid: any, idx: number) => (
+                  <div key={idx} className="flex items-center justify-between p-4 bg-black border border-[#ff2020]/20 rounded-none gap-4">
+                    <div>
+                      <h4 className="font-bold text-white text-sm uppercase tracking-wider">{bid.company} Offer</h4>
+                      <p className="text-[10px] text-white/40 mt-0.5">Bidded on {bid.timestamp}</p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="font-bold text-white mono-font text-sm">{bid.amount} TT</span>
+                      <button
+                        onClick={() => handleAcceptOffer(bid)}
+                        className="terminal-button text-[10px] py-1.5 px-3 whitespace-nowrap"
+                      >
+                        Accept Offer
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* AI Advisor Panel */}
