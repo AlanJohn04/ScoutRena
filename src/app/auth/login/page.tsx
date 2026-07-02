@@ -45,7 +45,7 @@ export default function Login() {
         </div>
 
         {error && (
-          <div className="mb-8 p-4 border border-[#ff2020] bg-[#ff2020]/10 text-[#ff2020] text-sm font-bold uppercase tracking-widest text-center">
+          <div className="mb-8 p-4 bg-[#ff2020]/10 text-[#ff2020] text-sm font-bold uppercase tracking-widest text-center">
             [ERR]: {error}
           </div>
         )}
@@ -78,7 +78,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="terminal-button w-full mt-6 py-4 text-sm font-bold uppercase tracking-widest flex items-center justify-center disabled:opacity-30 border border-[#ff2020] hover:bg-[#ff2020] hover:text-black transition-colors"
+            className="terminal-button w-full mt-6 py-4 text-sm font-bold uppercase tracking-widest flex items-center justify-center disabled:opacity-30 "
           >
             {loading ? "[ AUTHENTICATING... ]" : "[ EXECUTE_LOGIN ]"}
           </button>

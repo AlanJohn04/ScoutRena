@@ -38,20 +38,22 @@ body {
 
   .terminal-button {
     background-color: transparent;
-    border: 1px solid rgba(255, 32, 32, 0.4);
+    border: 1px solid #ff2020;
     color: #ff2020;
     border-radius: 0;
     text-transform: uppercase;
     font-family: 'Courier New', Courier, monospace;
     font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
     padding: 12px 24px;
-    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+    transition: all 0.2s ease-in-out;
   }
 
   .terminal-button:hover:not(:disabled) {
-    background-color: rgba(255, 32, 32, 0.1);
-    border-color: #ff2020;
-    color: #ff2020;
+    background-color: #ff2020 !important;
+    color: #000000 !important;
+    box-shadow: 0 0 15px rgba(255, 32, 32, 0.4);
   }
 
   .terminal-button:disabled {
@@ -85,14 +87,14 @@ body {
     text-transform: uppercase;
   }
 
-  /* Override Chrome Autofill styling */
+  /* Override Chrome Autofill styling (Reliable box-shadow hack) */
   .terminal-input:-webkit-autofill,
   .terminal-input:-webkit-autofill:hover,
   .terminal-input:-webkit-autofill:focus,
   .terminal-input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s;
+    -webkit-box-shadow: 0 0 0 30px #050505 inset !important;
     -webkit-text-fill-color: #ffffff !important;
-    background-color: transparent !important;
+    transition: background-color 5000s ease-in-out 0s;
   }
 
   /* Primary Button Override */
