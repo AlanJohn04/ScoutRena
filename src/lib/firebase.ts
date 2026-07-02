@@ -55,24 +55,36 @@ export interface UserProfile {
 
 export async function firebaseSignUp(email: string, password: string, name: string, role: "student" | "company", extra: any = {}): Promise<UserProfile> {
   if (isFirebaseConfigured && auth && db) {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-    
-    const profile: UserProfile = {
-      uid: user.uid,
-      email,
-      role,
-      name,
-      ...extra,
-      createdAt: new Date().toISOString(),
-    };
-    
-    await setDoc(doc(db, "users", user.uid), profile);
-    
-    // Crucial: Set local data so the application knows the user is logged in
-    setLocalData("scoutrena_current_user", profile);
-    
-    return profile;
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      
+      const profile: UserProfile = {
+        uid: user.uid,
+        email,
+        role,
+        name,
+        ...extra,
+        createdAt: new Date().toISOString(),
+      };
+      
+      await setDoc(doc(db, "users", user.uid), profile);
+      
+      // Crucial: Set local data so the application knows the user is logged in
+      setLocalData("scoutrena_current_user", profile);
+      
+      return profile;
+    } catch (error: any) {
+      console.error("Firebase SignUp Error:", error);
+      if (error.code === 'auth/operation-not-allowed') {
+        throw new Error("Email/Password Auth is not enabled! Go to Firebase Console -> Authentication -> Sign-in method and enable 'Email/Password'.");
+      } else if (error.code === 'auth/email-already-in-use') {
+        throw new Error("This email is already registered. Please log in instead.");
+      } else if (error.code === 'auth/weak-password') {
+        throw new Error("Password must be at least 6 characters long.");
+      }
+      throw new Error(error.message || "Registration failed.");
+    }
   } else {
     throw new Error("Firebase is not configured. Real signup is disabled.");
   }
@@ -80,17 +92,29 @@ export async function firebaseSignUp(email: string, password: string, name: stri
 
 export async function firebaseLogin(email: string, password: string): Promise<UserProfile> {
   if (isFirebaseConfigured && auth && db) {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-    const docRef = doc(db, "users", user.uid);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      const profile = docSnap.data() as UserProfile;
-      // Crucial: Set local data so the application knows the user is logged in
-      setLocalData("scoutrena_current_user", profile);
-      return profile;
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const profile = docSnap.data() as UserProfile;
+        // Crucial: Set local data so the application knows the user is logged in
+        setLocalData("scoutrena_current_user", profile);
+        return profile;
+      }
+      throw new Error("Profile not found in Firestore. Please register first.");
+    } catch (error: any) {
+      console.error("Firebase Login Error:", error);
+      if (error.code === 'auth/operation-not-allowed') {
+        throw new Error("Email/Password Auth is not enabled! Go to Firebase Console -> Authentication -> Sign-in method and enable 'Email/Password'.");
+      } else if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
+        throw new Error("Invalid email or password. Please check your credentials or register a new account.");
+      } else if (error.code === 'auth/wrong-password') {
+        throw new Error("Incorrect password. Please try again.");
+      }
+      throw new Error(error.message || "Login failed.");
     }
-    throw new Error("Profile not found in Firestore");
   } else {
     throw new Error("Firebase is not configured. Real login is disabled.");
   }
