@@ -68,7 +68,19 @@ export async function firebaseSignUp(email: string, password: string, name: stri
         createdAt: new Date().toISOString(),
       };
       
-      await setDoc(doc(db, "users", user.uid), profile);
+      // Wrap setDoc in a timeout in case Firestore isn't created in the console
+      try {
+        const setDocPromise = setDoc(doc(db, "users", user.uid), profile);
+        const timeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject(new Error("FIRESTORE_TIMEOUT")), 5000)
+        );
+        await Promise.race([setDocPromise, timeoutPromise]);
+      } catch (err: any) {
+        if (err.message === "FIRESTORE_TIMEOUT") {
+          throw new Error("Firestore Timeout! Did you create a Cloud Firestore database in your Firebase Console? (Check Firestore Database tab -> Create Database)");
+        }
+        throw err;
+      }
       
       // Crucial: Set local data so the application knows the user is logged in
       setLocalData("scoutrena_current_user", profile);
@@ -96,7 +108,22 @@ export async function firebaseLogin(email: string, password: string): Promise<Us
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef);
+      
+      // Wrap getDoc in a timeout in case Firestore isn't created
+      let docSnap;
+      try {
+        const getDocPromise = getDoc(docRef);
+        const timeoutPromise = new Promise<any>((_, reject) => 
+          setTimeout(() => reject(new Error("FIRESTORE_TIMEOUT")), 5000)
+        );
+        docSnap = await Promise.race([getDocPromise, timeoutPromise]);
+      } catch (err: any) {
+        if (err.message === "FIRESTORE_TIMEOUT") {
+          throw new Error("Firestore Timeout! Did you create a Cloud Firestore database in your Firebase Console? (Check Firestore Database tab -> Create Database)");
+        }
+        throw err;
+      }
+
       if (docSnap.exists()) {
         const profile = docSnap.data() as UserProfile;
         // Crucial: Set local data so the application knows the user is logged in
