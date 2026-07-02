@@ -59,13 +59,13 @@ export default function CandidateDiscovery() {
             <Search className="text-brand-blue w-6 h-6" />
             SCOUT & FILTER CONSOLE
           </h2>
-          <p className="text-base text-white/50 uppercase tracking-widest mt-1">Discover talent before anyone else, filtered by AI metrics</p>
+          <p className="text-sm text-white/50 uppercase tracking-widest mt-1">Discover talent before anyone else, filtered by AI metrics</p>
         </div>
         
         {/* Blind mode switch */}
         <button
           onClick={() => setBlindMode(!blindMode)}
-          className="flex items-center gap-1.5 py-1.5 px-3.5 rounded-none bg-white/5 border border-[#ff2020]/30 hover:bg-white/10 text-base font-bold text-white transition cursor-pointer"
+          className="flex items-center gap-1.5 py-1.5 px-3.5 rounded-none bg-white/5 border border-[#ff2020]/30 hover:bg-white/10 text-sm font-bold text-white transition cursor-pointer"
         >
           {blindMode ? <Eye className="w-4 h-4 text-brand-blue" /> : <EyeOff className="w-4 h-4 text-brand-pink" />}
           {blindMode ? "Disable Blind Mode" : "Enable Blind Mode"}
@@ -82,7 +82,7 @@ export default function CandidateDiscovery() {
             placeholder="Search by name, skills, role, or college..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-white/5 border border-[#ff2020]/30 rounded-none pl-10 pr-4 py-3 text-lg text-white focus:outline-none focus:border-brand-blue transition"
+            className="w-full bg-white/5 border border-[#ff2020]/30 rounded-none pl-10 pr-4 py-3 text-base text-white focus:outline-none focus:border-brand-blue transition"
           />
         </div>
 
@@ -90,7 +90,7 @@ export default function CandidateDiscovery() {
         <div className="flex flex-wrap gap-2 w-full md:w-auto">
           <button
             onClick={() => setActiveFilter("all")}
-            className={`py-2 px-4 rounded-none text-base font-bold cursor-pointer transition ${
+            className={`py-2 px-4 rounded-none text-sm font-bold cursor-pointer transition ${
               activeFilter === "all" ? "bg-white/10 text-white" : "bg-white/5 text-white/60 hover:bg-white/10"
             }`}
           >
@@ -98,7 +98,7 @@ export default function CandidateDiscovery() {
           </button>
           <button
             onClick={() => setActiveFilter("best_now")}
-            className={`py-2 px-4 rounded-none text-base font-bold cursor-pointer transition flex items-center gap-1 ${
+            className={`py-2 px-4 rounded-none text-sm font-bold cursor-pointer transition flex items-center gap-1 ${
               activeFilter === "best_now" ? "bg-brand-blue text-[#030616]" : "bg-white/5 text-white/60 hover:bg-white/10"
             }`}
           >
@@ -106,7 +106,7 @@ export default function CandidateDiscovery() {
           </button>
           <button
             onClick={() => setActiveFilter("best_future")}
-            className={`py-2 px-4 rounded-none text-base font-bold cursor-pointer transition flex items-center gap-1 ${
+            className={`py-2 px-4 rounded-none text-sm font-bold cursor-pointer transition flex items-center gap-1 ${
               activeFilter === "best_future" ? "bg-brand-purple text-white" : "bg-white/5 text-white/60 hover:bg-white/10"
             }`}
           >
@@ -114,7 +114,7 @@ export default function CandidateDiscovery() {
           </button>
           <button
             onClick={() => setActiveFilter("hidden_gem")}
-            className={`py-2 px-4 rounded-none text-base font-bold cursor-pointer transition flex items-center gap-1 ${
+            className={`py-2 px-4 rounded-none text-sm font-bold cursor-pointer transition flex items-center gap-1 ${
               activeFilter === "hidden_gem" ? "bg-brand-green text-[#030616]" : "bg-white/5 text-white/60 hover:bg-white/10"
             }`}
           >
@@ -122,7 +122,7 @@ export default function CandidateDiscovery() {
           </button>
           <button
             onClick={() => setActiveFilter("high_risk")}
-            className={`py-2 px-4 rounded-none text-base font-bold cursor-pointer transition flex items-center gap-1 ${
+            className={`py-2 px-4 rounded-none text-sm font-bold cursor-pointer transition flex items-center gap-1 ${
               activeFilter === "high_risk" ? "bg-brand-pink text-white" : "bg-white/5 text-white/60 hover:bg-white/10"
             }`}
           >
@@ -133,7 +133,7 @@ export default function CandidateDiscovery() {
 
       {/* Grid of Results */}
       {sortedCandidates.length === 0 ? (
-        <div className="text-center py-20 text-white/40 text-lg terminal-panel">
+        <div className="text-center py-20 text-white/40 text-base terminal-panel">
           No candidates match your search query or sorting strategy.
         </div>
       ) : (
@@ -160,27 +160,27 @@ export default function CandidateDiscovery() {
                     <div className="flex items-center gap-3">
                       <img src={displayAvatar} alt={displayName} className="w-12 h-12 rounded-none object-cover border border-[#ff2020]/20" />
                       <div>
-                        <h4 className="font-extrabold text-white text-base group-hover:text-brand-blue transition">{displayName}</h4>
-                        <span className="text-lg text-white/40 block leading-tight">{displayCollege}</span>
+                        <h4 className="font-extrabold text-white text-lg group-hover:text-brand-blue transition">{displayName}</h4>
+                        <span className="text-xs text-white/40 block leading-tight">{displayCollege}</span>
                       </div>
                     </div>
                     <div className="text-right">
-                      <span className="text-base text-white/40 block uppercase">Potential</span>
-                      <span className="text-lg font-bold text-brand-green">{candidate.potentialScore}</span>
+                      <span className="text-[10px] text-white/40 block uppercase">Potential</span>
+                      <span className="text-base font-bold text-brand-green">{candidate.potentialScore}</span>
                     </div>
                   </div>
 
-                  <p className="text-base text-brand-blue font-semibold uppercase tracking-wider mb-3">{candidate.role}</p>
+                  <p className="text-sm text-brand-blue font-semibold uppercase tracking-wider mb-3">{candidate.role}</p>
 
                   {/* Skills badges */}
                   <div className="flex flex-wrap gap-1.5 mb-6">
                     {candidate.skills.slice(0, 4).map((skill) => (
-                      <span key={skill} className="py-1 px-2.5 bg-white/5 text-base text-white/80 font-bold rounded">
+                      <span key={skill} className="py-1 px-2.5 bg-white/5 text-[10px] text-white/80 font-bold rounded">
                         {skill}
                       </span>
                     ))}
                     {candidate.skills.length > 4 && (
-                      <span className="py-1 px-2.5 bg-white/5 text-base text-white/40 font-bold rounded">
+                      <span className="py-1 px-2.5 bg-white/5 text-[10px] text-white/40 font-bold rounded">
                         +{candidate.skills.length - 4} more
                       </span>
                     )}
@@ -188,14 +188,14 @@ export default function CandidateDiscovery() {
                 </div>
 
                 {/* Pricing and view buttons */}
-                <div className="flex justify-between items-center pt-4 border-t border-[#ff2020]/20 text-base">
+                <div className="flex justify-between items-center pt-4 border-t border-[#ff2020]/20 text-sm">
                   <div>
-                    <span className="text-white/40 block text-base uppercase">Valuation</span>
+                    <span className="text-white/40 block text-[10px] uppercase">Valuation</span>
                     <span className="font-bold text-brand-amber mono-font">{candidate.currentValue.toLocaleString()} TT</span>
                   </div>
                   <Link
                     href={`/student/${candidate.id}`}
-                    className="py-2 px-4 rounded-none bg-brand-blue hover:bg-brand-blue/90 text-[#030616] font-extrabold text-base transition"
+                    className="py-2 px-4 rounded-none bg-brand-blue hover:bg-brand-blue/90 text-[#030616] font-extrabold text-sm transition"
                   >
                     Bid / View Profile
                   </Link>

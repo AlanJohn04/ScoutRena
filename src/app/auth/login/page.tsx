@@ -39,20 +39,20 @@ export default function Login() {
         <div className="absolute top-0 left-0 w-full h-1 bg-[#ff2020]"></div>
         
         <div className="mb-12 border-b border-[#ff2020]/30 pb-6">
-          <span className="text-lg text-[#ff2020] font-bold tracking-widest uppercase mb-2 block">[ SYSTEM_LOGIN ]</span>
+          <span className="text-xs text-[#ff2020] font-bold tracking-widest uppercase mb-2 block">[ SYSTEM_LOGIN ]</span>
           <h2 className="text-4xl font-black text-white tracking-widest uppercase">Authenticate</h2>
-          <p className="text-base text-[#888888] mt-2 font-bold tracking-widest uppercase">Access your Talent DNA Platform</p>
+          <p className="text-sm text-[#888888] mt-2 font-bold tracking-widest uppercase">Access your Talent DNA Platform</p>
         </div>
 
         {error && (
-          <div className="mb-8 p-4 border border-[#ff2020] bg-[#ff2020]/10 text-[#ff2020] text-base font-bold uppercase tracking-widest text-center">
+          <div className="mb-8 p-4 border border-[#ff2020] bg-[#ff2020]/10 text-[#ff2020] text-sm font-bold uppercase tracking-widest text-center">
             [ERR]: {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-8">
           <div>
-            <label className="block text-lg font-bold text-[#ff2020] uppercase tracking-widest mb-2">{'>'} EMAIL_ADDRESS:</label>
+            <label className="block text-xs font-bold text-[#ff2020] uppercase tracking-widest mb-2">{'>'} EMAIL_ADDRESS:</label>
             <input
               type="email"
               required
@@ -64,7 +64,7 @@ export default function Login() {
           </div>
 
           <div>
-            <label className="block text-lg font-bold text-[#ff2020] uppercase tracking-widest mb-2">{'>'} SECURE_PASSWORD:</label>
+            <label className="block text-xs font-bold text-[#ff2020] uppercase tracking-widest mb-2">{'>'} SECURE_PASSWORD:</label>
             <input
               type="password"
               required
@@ -78,13 +78,13 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="terminal-button w-full mt-6 py-4 text-base font-bold uppercase tracking-widest flex items-center justify-center disabled:opacity-30 border border-[#ff2020] hover:bg-[#ff2020] hover:text-black transition-colors"
+            className="terminal-button w-full mt-6 py-4 text-sm font-bold uppercase tracking-widest flex items-center justify-center disabled:opacity-30 border border-[#ff2020] hover:bg-[#ff2020] hover:text-black transition-colors"
           >
             {loading ? "[ AUTHENTICATING... ]" : "[ EXECUTE_LOGIN ]"}
           </button>
         </form>
 
-        <div className="mt-10 text-center text-base font-bold text-[#888888] tracking-widest uppercase">
+        <div className="mt-10 text-center text-sm font-bold text-[#888888] tracking-widest uppercase">
           NEW ENTITY?{" "}
           <Link href="/auth/register" className="text-[#ff2020] hover:text-white transition-colors underline underline-offset-4">
             [ INITIALIZE_ACCOUNT ]
