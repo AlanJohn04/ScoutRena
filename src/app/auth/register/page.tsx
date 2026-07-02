@@ -78,25 +78,25 @@ export default function Register() {
         <div className="absolute top-0 left-0 w-full h-1 bg-[#ff2020]"></div>
         
         <div className="mb-12 border-b border-[#ff2020]/30 pb-6">
-          <span className="text-[10px] text-[#ff2020] font-bold tracking-widest uppercase mb-2 block">[ SYSTEM_REGISTRATION ]</span>
-          <h2 className="text-3xl font-black text-white tracking-widest uppercase">Initialize Entity</h2>
-          <p className="text-xs text-[#888888] mt-2 font-bold tracking-widest uppercase">Join the Talent Market</p>
+          <span className="text-lg text-[#ff2020] font-bold tracking-widest uppercase mb-2 block">[ SYSTEM_REGISTRATION ]</span>
+          <h2 className="text-4xl font-black text-white tracking-widest uppercase">Initialize Entity</h2>
+          <p className="text-base text-[#888888] mt-2 font-bold tracking-widest uppercase">Join the Talent Market</p>
         </div>
 
         {error && (
-          <div className="mb-8 p-4 border border-[#ff2020] bg-[#ff2020]/10 text-[#ff2020] text-xs font-bold uppercase tracking-widest text-center">
+          <div className="mb-8 p-4 border border-[#ff2020] bg-[#ff2020]/10 text-[#ff2020] text-base font-bold uppercase tracking-widest text-center">
             [ERR]: {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-8">
           <div>
-            <label className="block text-[10px] font-bold text-[#ff2020] uppercase tracking-widest mb-3">{'>'} DEFINE_ROLE:</label>
+            <label className="block text-lg font-bold text-[#ff2020] uppercase tracking-widest mb-3">{'>'} DEFINE_ROLE:</label>
             <div className="grid grid-cols-2 gap-4">
               <button
                 type="button"
                 onClick={() => setRole("student")}
-                className={`py-3 px-4 text-xs font-bold uppercase tracking-widest transition-colors border ${
+                className={`py-3 px-4 text-base font-bold uppercase tracking-widest transition-colors border ${
                   role === "student"
                     ? "bg-[#ff2020] text-black border-[#ff2020]"
                     : "bg-transparent text-[#888888] border-[#ff2020]/30 hover:border-[#ff2020] hover:text-white"
@@ -107,7 +107,7 @@ export default function Register() {
               <button
                 type="button"
                 onClick={() => setRole("company")}
-                className={`py-3 px-4 text-xs font-bold uppercase tracking-widest transition-colors border ${
+                className={`py-3 px-4 text-base font-bold uppercase tracking-widest transition-colors border ${
                   role === "company"
                     ? "bg-[#ff2020] text-black border-[#ff2020]"
                     : "bg-transparent text-[#888888] border-[#ff2020]/30 hover:border-[#ff2020] hover:text-white"
@@ -119,7 +119,7 @@ export default function Register() {
           </div>
 
           <div>
-            <label className="block text-[10px] font-bold text-[#ff2020] uppercase tracking-widest mb-2">{'>'} FULL_NAME:</label>
+            <label className="block text-lg font-bold text-[#ff2020] uppercase tracking-widest mb-2">{'>'} FULL_NAME:</label>
             <input
               type="text"
               required
@@ -131,7 +131,7 @@ export default function Register() {
           </div>
 
           <div>
-            <label className="block text-[10px] font-bold text-[#ff2020] uppercase tracking-widest mb-2">{'>'} EMAIL_ADDRESS:</label>
+            <label className="block text-lg font-bold text-[#ff2020] uppercase tracking-widest mb-2">{'>'} EMAIL_ADDRESS:</label>
             <input
               type="email"
               required
@@ -143,7 +143,7 @@ export default function Register() {
           </div>
 
           <div>
-            <label className="block text-[10px] font-bold text-[#ff2020] uppercase tracking-widest mb-2">{'>'} SECURE_PASSWORD:</label>
+            <label className="block text-lg font-bold text-[#ff2020] uppercase tracking-widest mb-2">{'>'} SECURE_PASSWORD:</label>
             <input
               type="password"
               required
@@ -157,7 +157,7 @@ export default function Register() {
           {/* Role dependent details */}
           {role === "student" ? (
             <div>
-              <label className="block text-[10px] font-bold text-[#ff2020] uppercase tracking-widest mb-2">{'>'} UNIVERSITY_COLLEGE:</label>
+              <label className="block text-lg font-bold text-[#ff2020] uppercase tracking-widest mb-2">{'>'} UNIVERSITY_COLLEGE:</label>
               <input
                 type="text"
                 required
@@ -169,7 +169,7 @@ export default function Register() {
             </div>
           ) : (
             <div>
-              <label className="block text-[10px] font-bold text-[#ff2020] uppercase tracking-widest mb-2">{'>'} COMPANY_NAME:</label>
+              <label className="block text-lg font-bold text-[#ff2020] uppercase tracking-widest mb-2">{'>'} COMPANY_NAME:</label>
               <input
                 type="text"
                 required
@@ -184,13 +184,13 @@ export default function Register() {
           <button
             type="submit"
             disabled={loading}
-            className="terminal-button w-full mt-6 py-4 text-xs font-bold uppercase tracking-widest flex items-center justify-center disabled:opacity-30 border border-[#ff2020] hover:bg-[#ff2020] hover:text-black transition-colors"
+            className="terminal-button w-full mt-6 py-4 text-base font-bold uppercase tracking-widest flex items-center justify-center disabled:opacity-30 border border-[#ff2020] hover:bg-[#ff2020] hover:text-black transition-colors"
           >
             {loading ? "[ PROCESSING_INITIALIZATION... ]" : "[ EXECUTE_REGISTRATION ]"}
           </button>
         </form>
 
-        <div className="mt-10 text-center text-xs font-bold text-[#888888] tracking-widest uppercase">
+        <div className="mt-10 text-center text-base font-bold text-[#888888] tracking-widest uppercase">
           ENTITY ALREADY EXISTS?{" "}
           <Link href="/auth/login" className="text-[#ff2020] hover:text-white transition-colors underline underline-offset-4">
             [ AUTHENTICATE_HERE ]

@@ -43,6 +43,8 @@ body {
     border-radius: 0;
     text-transform: uppercase;
     font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+    padding: 12px 24px;
     transition: background-color 0.2s, border-color 0.2s, color 0.2s;
   }
 
@@ -65,8 +67,9 @@ body {
     border-bottom: 2px solid rgba(255, 32, 32, 0.4);
     color: #ffffff;
     font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
     transition: all 0.2s;
-    padding-left: 0;
+    padding: 12px 0;
     border-radius: 0;
     width: 100%;
   }
@@ -80,6 +83,16 @@ body {
   .terminal-input::placeholder {
     color: rgba(255, 255, 255, 0.2);
     text-transform: uppercase;
+  }
+
+  /* Override Chrome Autofill styling */
+  .terminal-input:-webkit-autofill,
+  .terminal-input:-webkit-autofill:hover,
+  .terminal-input:-webkit-autofill:focus,
+  .terminal-input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #ffffff !important;
+    background-color: transparent !important;
   }
 
   /* Primary Button Override */

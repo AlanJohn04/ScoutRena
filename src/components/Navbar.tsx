@@ -117,7 +117,7 @@ export default function Navbar() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`text-xs font-bold tracking-widest uppercase transition-colors mono-font flex items-center ${
+                    className={`text-base font-bold tracking-widest uppercase transition-colors mono-font flex items-center ${
                       active 
                         ? "text-[#ff2020]" 
                         : "text-[#888888] hover:text-[#ffffff] glitch-hover"
@@ -131,10 +131,10 @@ export default function Navbar() {
               
               {user?.role === "company" && (
                 <>
-                  <Link href="/company" className={`text-xs font-bold tracking-widest uppercase transition-colors mono-font ${pathname === "/company" ? "text-[#ff2020]" : "text-[#888888] hover:text-[#ffffff]"}`}>
+                  <Link href="/company" className={`text-base font-bold tracking-widest uppercase transition-colors mono-font ${pathname === "/company" ? "text-[#ff2020]" : "text-[#888888] hover:text-[#ffffff]"}`}>
                     [COMPANY_DASHBOARD]
                   </Link>
-                  <Link href="/company/discover" className={`text-xs font-bold tracking-widest uppercase transition-colors mono-font ${pathname === "/company/discover" ? "text-[#ff2020]" : "text-[#888888] hover:text-[#ffffff]"}`}>
+                  <Link href="/company/discover" className={`text-base font-bold tracking-widest uppercase transition-colors mono-font ${pathname === "/company/discover" ? "text-[#ff2020]" : "text-[#888888] hover:text-[#ffffff]"}`}>
                     [DISCOVER]
                   </Link>
                 </>
@@ -142,10 +142,10 @@ export default function Navbar() {
 
               {user?.role === "student" && (
                 <>
-                  <Link href="/student" className={`text-xs font-bold tracking-widest uppercase transition-colors mono-font ${pathname === "/student" ? "text-[#ff2020]" : "text-[#888888] hover:text-[#ffffff]"}`}>
+                  <Link href="/student" className={`text-base font-bold tracking-widest uppercase transition-colors mono-font ${pathname === "/student" ? "text-[#ff2020]" : "text-[#888888] hover:text-[#ffffff]"}`}>
                     [DASHBOARD]
                   </Link>
-                  <Link href={`/student/${user.uid}`} className={`text-xs font-bold tracking-widest uppercase transition-colors mono-font ${pathname.includes(user.uid) ? "text-[#ff2020]" : "text-[#888888] hover:text-[#ffffff]"}`}>
+                  <Link href={`/student/${user.uid}`} className={`text-base font-bold tracking-widest uppercase transition-colors mono-font ${pathname.includes(user.uid) ? "text-[#ff2020]" : "text-[#888888] hover:text-[#ffffff]"}`}>
                     [PUBLIC_PROFILE]
                   </Link>
                 </>
@@ -158,7 +158,7 @@ export default function Navbar() {
             {user ? (
               <div className="flex items-center gap-4 mono-font">
                 {/* Wallet Info (Company) or CPI (Student) */}
-                <div className="hidden sm:flex items-center gap-3 px-3 py-1.5 border border-[#ff2020]/20 text-[10px] uppercase font-bold tracking-widest">
+                <div className="hidden sm:flex items-center gap-3 px-3 py-1.5 border border-[#ff2020]/20 text-lg uppercase font-bold tracking-widest">
                   {user.role === "company" ? (
                     <div className="flex items-center gap-3">
                       <span className="text-[#888888]"><span className="text-[#ff2020] mr-1">TKN:</span>{walletBalance} TT</span>
@@ -180,18 +180,18 @@ export default function Navbar() {
 
                 {/* Profile Avatar / Logout Dropdown */}
                 <div className="flex items-center gap-4 pl-4 border-l border-[#ff2020]/20">
-                  <span className="text-[#888888] text-[10px] font-bold tracking-widest uppercase">
+                  <span className="text-[#888888] text-lg font-bold tracking-widest uppercase">
                     USER: {user.role === "student" ? "TALENT" : "CORP"}
                   </span>
-                  <button onClick={handleLogout} className="text-[#ff2020] hover:text-white transition-colors text-[10px] font-bold tracking-widest uppercase glitch-hover" title="Sign Out">
+                  <button onClick={handleLogout} className="text-[#ff2020] hover:text-white transition-colors text-lg font-bold tracking-widest uppercase glitch-hover" title="Sign Out">
                     [LOGOUT]
                   </button>
                 </div>
               </div>
             ) : (
               <div className="flex items-center gap-4 mono-font">
-                <Link href="/auth/login" className="text-xs font-bold text-[#888888] hover:text-[#ffffff] transition-colors glitch-hover">[LOG_IN]</Link>
-                <Link href="/auth/register" className="text-xs font-bold bg-[#ff2020] text-black hover:bg-[#ffffff] transition-colors px-3 py-1.5 glitch-hover">[INIT_USER]</Link>
+                <Link href="/auth/login" className="text-base font-bold text-[#888888] hover:text-[#ffffff] transition-colors glitch-hover">[LOG_IN]</Link>
+                <Link href="/auth/register" className="text-base font-bold bg-[#ff2020] text-black hover:bg-[#ffffff] transition-colors px-3 py-1.5 glitch-hover">[INIT_USER]</Link>
               </div>
             )}
           </div>

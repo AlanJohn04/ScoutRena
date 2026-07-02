@@ -173,7 +173,7 @@ export default function CompanyDashboard() {
   };
 
   if (!companyDetails || !user) {
-    return <div className="min-h-screen flex items-center justify-center text-[#888888] text-sm font-semibold tracking-widest uppercase">Loading Recruiter Console...</div>;
+    return <div className="min-h-screen flex items-center justify-center text-[#888888] text-lg font-semibold tracking-widest uppercase">Loading Recruiter Console...</div>;
   }
 
   // Find Hidden Gems (candidates with cpi index >80 and valuation <=3500 TT)
@@ -192,7 +192,7 @@ export default function CompanyDashboard() {
             <Building2 className="text-[#ff2020] w-8 h-8" />
             Recruiter Console
           </h2>
-          <p className="text-sm text-[#888888] font-semibold uppercase tracking-widest mt-2">
+          <p className="text-lg text-[#888888] font-semibold uppercase tracking-widest mt-2">
             {companyDetails.name} | Bid management & Radar
           </p>
         </div>
@@ -202,31 +202,31 @@ export default function CompanyDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 z-10">
         <div className="terminal-panel p-6 flex flex-col justify-between">
           <div>
-            <span className="text-xs text-[#888888] uppercase tracking-widest block font-bold mb-1">Wallet Balance</span>
-            <p className="text-3xl font-bold text-white mono-font">{companyDetails.tokenBalance?.toLocaleString()} TT</p>
+            <span className="text-base text-[#888888] uppercase tracking-widest block font-bold mb-1">Wallet Balance</span>
+            <p className="text-4xl font-bold text-white mono-font">{companyDetails.tokenBalance?.toLocaleString()} TT</p>
           </div>
           <button
             onClick={handleBuyTokens}
             disabled={reloadingBalance}
-            className="terminal-button mt-4 py-2 w-full text-white text-xs font-bold uppercase tracking-widest transition-colors flex items-center justify-center disabled:opacity-50"
+            className="terminal-button mt-4 py-2 w-full text-white text-base font-bold uppercase tracking-widest transition-colors flex items-center justify-center disabled:opacity-50"
           >
             {reloadingBalance ? "MINTING..." : "BUY TOKENS"}
           </button>
         </div>
 
         <div className="terminal-panel p-6 flex flex-col justify-center">
-          <span className="text-xs text-[#888888] uppercase tracking-widest block font-bold mb-1">Active Locked Bids</span>
-          <p className="text-3xl font-bold text-white mt-1">{bidsLog.length} <span className="text-sm text-[#ff2020]">CANDIDATES</span></p>
+          <span className="text-base text-[#888888] uppercase tracking-widest block font-bold mb-1">Active Locked Bids</span>
+          <p className="text-4xl font-bold text-white mt-1">{bidsLog.length} <span className="text-lg text-[#ff2020]">CANDIDATES</span></p>
         </div>
 
         <div className="terminal-panel p-6 flex flex-col justify-center">
-          <span className="text-xs text-[#888888] uppercase tracking-widest block font-bold mb-1">Trial Internships</span>
-          <p className="text-3xl font-bold text-white mt-1">{companyDetails.trialInternships} <span className="text-sm text-[#ff2020]">ACTIVE</span></p>
+          <span className="text-base text-[#888888] uppercase tracking-widest block font-bold mb-1">Trial Internships</span>
+          <p className="text-4xl font-bold text-white mt-1">{companyDetails.trialInternships} <span className="text-lg text-[#ff2020]">ACTIVE</span></p>
         </div>
 
         <div className="terminal-panel p-6 flex flex-col justify-center">
-          <span className="text-xs text-[#888888] uppercase tracking-widest block font-bold mb-1">Followed Candidates</span>
-          <p className="text-3xl font-bold text-white mt-1">{followedCandidates.length} <span className="text-sm text-[#ff2020]">TRACKED</span></p>
+          <span className="text-base text-[#888888] uppercase tracking-widest block font-bold mb-1">Followed Candidates</span>
+          <p className="text-4xl font-bold text-white mt-1">{followedCandidates.length} <span className="text-lg text-[#ff2020]">TRACKED</span></p>
         </div>
       </div>
 
@@ -238,7 +238,7 @@ export default function CompanyDashboard() {
             <Sparkles className="text-[#ff2020] w-10 h-10 shrink-0 animate-pulse drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]" />
             <div>
               <h3 className="text-lg font-bold text-white tracking-wide">⭐ AI Hidden Gem Detector</h3>
-              <p className="text-sm text-[#cccccc] font-medium mt-1 max-w-2xl leading-relaxed">
+              <p className="text-lg text-[#cccccc] font-medium mt-1 max-w-2xl leading-relaxed">
                 We discovered {hiddenGems.length} candidate(s) currently ranked with high potential but undervalued by the market. Recruit them before they get bid up!
               </p>
             </div>
@@ -248,7 +248,7 @@ export default function CompanyDashboard() {
               <Link
                 key={gem.id}
                 href={`/student/${gem.id}`}
-                className="py-3 px-6 bg-[#ff2020] text-black text-white hover:bg-indigo-500 rounded-none text-xs font-bold flex items-center gap-2 uppercase tracking-widest transition-transform hover:-translate-y-1 shadow-none border border-[#ff2020]/40"
+                className="py-3 px-6 bg-[#ff2020] text-black text-white hover:bg-indigo-500 rounded-none text-base font-bold flex items-center gap-2 uppercase tracking-widest transition-transform hover:-translate-y-1 shadow-none border border-[#ff2020]/40"
               >
                 Bid {gem.name} ({gem.currentValue} TT)
                 <ArrowRight className="w-4 h-4 stroke-[3]" />
@@ -271,31 +271,31 @@ export default function CompanyDashboard() {
             </h3>
 
             {bidsLog.length === 0 ? (
-              <div className="text-center py-12 text-[#888888] text-sm font-semibold tracking-widest uppercase border border-dashed border-[#ff2020]/30 rounded-none">
+              <div className="text-center py-12 text-[#888888] text-lg font-semibold tracking-widest uppercase border border-dashed border-[#ff2020]/30 rounded-none">
                 No active bids placed. Open the scout search to place bids.
               </div>
             ) : (
               <div className="flex flex-col gap-4">
                 {bidsLog.map((bid) => (
-                  <div key={bid.candidateId} className="flex justify-between items-center p-5 bg-black border-[#ff2020]/20 rounded-none border border-[#ff2020]/20 text-xs hover:border-[#ff2020]/40 transition-colors shadow-none">
+                  <div key={bid.candidateId} className="flex justify-between items-center p-5 bg-black border-[#ff2020]/20 rounded-none border border-[#ff2020]/20 text-base hover:border-[#ff2020]/40 transition-colors shadow-none">
                     <div>
                       <h4 className="font-bold text-white text-base">{bid.name}</h4>
-                      <p className="text-[10px] text-[#888888] font-semibold uppercase tracking-widest mt-1">{bid.role}</p>
+                      <p className="text-lg text-[#888888] font-semibold uppercase tracking-widest mt-1">{bid.role}</p>
                     </div>
 
                     <div className="flex items-center gap-8">
                       <div className="text-right">
-                        <span className="text-[10px] text-[#888888] font-bold tracking-widest uppercase block mb-1">Locked Escrow</span>
-                        <span className="font-bold text-white mono-font text-sm">{bid.amount} TT</span>
+                        <span className="text-lg text-[#888888] font-bold tracking-widest uppercase block mb-1">Locked Escrow</span>
+                        <span className="font-bold text-white mono-font text-lg">{bid.amount} TT</span>
                       </div>
-                      <span className={`py-1.5 px-4 font-bold uppercase tracking-widest text-[10px] border rounded-none ${
+                      <span className={`py-1.5 px-4 font-bold uppercase tracking-widest text-lg border rounded-none ${
                         bid.status === "Winning" ? "bg-white/10 border-white/30 text-white" : "bg-[#ff2020]/10 border-[#ff2020]/30 text-[#ff2020]"
                       }`}>
                         {bid.status}
                       </span>
                       <button
                         onClick={() => cancelMockBid(bid.candidateId)}
-                        className="py-2.5 px-4 bg-black border-[#ff2020]/20 hover:bg-rose-500/20 hover:text-[#ff2020] rounded-none border border-[#ff2020]/30 hover:border-[#ff2020]/30 text-[10px] font-bold tracking-widest text-[#cccccc] uppercase transition-colors"
+                        className="py-2.5 px-4 bg-black border-[#ff2020]/20 hover:bg-rose-500/20 hover:text-[#ff2020] rounded-none border border-[#ff2020]/30 hover:border-[#ff2020]/30 text-lg font-bold tracking-widest text-[#cccccc] uppercase transition-colors"
                       >
                         Cancel & Refund
                       </button>
@@ -313,7 +313,7 @@ export default function CompanyDashboard() {
             </h3>
             
             {followedCandidates.length === 0 ? (
-              <div className="text-center py-12 text-[#888888] text-sm font-semibold tracking-widest uppercase border border-dashed border-[#ff2020]/30 rounded-none">
+              <div className="text-center py-12 text-[#888888] text-lg font-semibold tracking-widest uppercase border border-dashed border-[#ff2020]/30 rounded-none">
                 You are not tracking any candidates. Follow them from their profiles.
               </div>
             ) : (
@@ -324,21 +324,21 @@ export default function CompanyDashboard() {
                       <div className="flex items-center gap-4">
                         <img src={candidate.avatar} alt={candidate.name} className="w-12 h-12 rounded-none object-cover border border-[#ff2020]/30" />
                         <div>
-                          <h4 className="text-sm font-bold text-white">{candidate.name}</h4>
-                          <p className="text-[10px] text-[#888888] font-semibold tracking-widest uppercase mt-1">{candidate.role}</p>
+                          <h4 className="text-lg font-bold text-white">{candidate.name}</h4>
+                          <p className="text-lg text-[#888888] font-semibold tracking-widest uppercase mt-1">{candidate.role}</p>
                         </div>
                       </div>
-                      <span className="text-sm font-bold text-[#ff2020]">{candidate.potentialScore}<span className="text-[10px] text-[#888888]">/100</span></span>
+                      <span className="text-lg font-bold text-[#ff2020]">{candidate.potentialScore}<span className="text-lg text-[#888888]">/100</span></span>
                     </div>
 
-                    <div className="flex justify-between items-center text-[10px] border-t border-[#ff2020]/20 pt-4 mt-2">
+                    <div className="flex justify-between items-center text-lg border-t border-[#ff2020]/20 pt-4 mt-2">
                       <div>
                         <span className="text-[#888888] font-bold tracking-widest uppercase block mb-1">Valuation</span>
-                        <span className="font-bold text-white mono-font text-sm">{candidate.currentValue} TT</span>
+                        <span className="font-bold text-white mono-font text-lg">{candidate.currentValue} TT</span>
                       </div>
                       <Link
                         href={`/student/${candidate.id}`}
-                        className="py-2.5 px-4 bg-black hover:bg-[#ff2020]/20 rounded-none border border-[#ff2020]/30 text-[#888888] font-bold text-[10px] tracking-widest uppercase transition-colors"
+                        className="py-2.5 px-4 bg-black hover:bg-[#ff2020]/20 rounded-none border border-[#ff2020]/30 text-[#888888] font-bold text-lg tracking-widest uppercase transition-colors"
                       >
                         Bid Console
                       </Link>
@@ -358,7 +358,7 @@ export default function CompanyDashboard() {
           </h3>
 
           {scoutFeed.length === 0 ? (
-            <div className="text-center py-10 text-[#888888] text-sm font-semibold tracking-widest uppercase">
+            <div className="text-center py-10 text-[#888888] text-lg font-semibold tracking-widest uppercase">
               No recent updates. Follow some candidates to view their live milestones.
             </div>
           ) : (
@@ -366,13 +366,13 @@ export default function CompanyDashboard() {
               {scoutFeed.map((item) => (
                 <div key={item.id} className="p-4 bg-black border-[#ff2020]/20 rounded-none border border-[#ff2020]/20 relative overflow-hidden flex flex-col gap-2 hover:border-[#ff2020]/30 transition-colors shadow-none">
                   <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-indigo-400 to-cyan-400"></div>
-                  <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest">
+                  <div className="flex justify-between items-center text-lg font-bold uppercase tracking-widest">
                     <span className="text-[#ff2020]">{item.name}</span>
                     <span className="text-[#888888]">{item.timestamp}</span>
                   </div>
-                  <p className="text-xs text-[#cccccc] font-medium leading-relaxed">{item.action}</p>
+                  <p className="text-base text-[#cccccc] font-medium leading-relaxed">{item.action}</p>
                   <div className="flex justify-end pt-2 mt-2 border-t border-[#ff2020]/20">
-                    <span className="text-[10px] font-bold text-white uppercase tracking-widest">IMPACT: <span className="text-white">{item.valueBoost}</span></span>
+                    <span className="text-lg font-bold text-white uppercase tracking-widest">IMPACT: <span className="text-white">{item.valueBoost}</span></span>
                   </div>
                 </div>
               ))}

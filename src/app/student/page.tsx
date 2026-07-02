@@ -170,7 +170,7 @@ export default function StudentDashboard() {
   };
 
   if (!profileData || !user) {
-    return <div className="min-h-screen flex items-center justify-center text-[#888888] text-sm font-semibold tracking-widest uppercase">Loading Talent DNA...</div>;
+    return <div className="min-h-screen flex items-center justify-center text-[#888888] text-lg font-semibold tracking-widest uppercase">Loading Talent DNA...</div>;
   }
 
   // Format Recharts CPI radar data
@@ -196,7 +196,7 @@ export default function StudentDashboard() {
           <img src={profileData.avatar} alt={profileData.name} className="w-24 h-24 rounded-none object-cover border-2 border-[#ff2020]/30 shadow-[0_0_20px_rgba(99,102,241,0.2)]" />
           <div>
             <h2 className="text-4xl font-extrabold text-white tracking-tight">{profileData.name}</h2>
-            <p className="text-sm text-[#ff2020] font-semibold tracking-wider uppercase mt-1">
+            <p className="text-lg text-[#ff2020] font-semibold tracking-wider uppercase mt-1">
               {profileData.college} • {profileData.role}
             </p>
           </div>
@@ -205,13 +205,13 @@ export default function StudentDashboard() {
         {/* Talent Card summary values */}
         <div className="flex items-center gap-8 terminal-panel p-5">
           <div className="text-right">
-            <span className="text-[10px] text-[#888888] uppercase tracking-widest font-bold block mb-1">Personal Valuation</span>
-            <p className="text-3xl font-bold text-white mono-font">{profileData.currentValue.toLocaleString()} TT</p>
+            <span className="text-lg text-[#888888] uppercase tracking-widest font-bold block mb-1">Personal Valuation</span>
+            <p className="text-4xl font-bold text-white mono-font">{profileData.currentValue.toLocaleString()} TT</p>
           </div>
           <div className="w-px h-12 bg-white/10"></div>
           <div className="text-right">
-            <span className="text-[10px] text-[#888888] uppercase tracking-widest font-bold block mb-1">Weekly Growth</span>
-            <p className="text-3xl font-bold text-white flex items-center justify-end mono-font">
+            <span className="text-lg text-[#888888] uppercase tracking-widest font-bold block mb-1">Weekly Growth</span>
+            <p className="text-4xl font-bold text-white flex items-center justify-end mono-font">
               <ArrowUpRight className="w-6 h-6 mr-1" />
               {profileData.growthRate}%
             </p>
@@ -261,9 +261,9 @@ export default function StudentDashboard() {
                   style={{ borderTop: `2px solid ${badge.color}` }}
                 >
                   <Award className="w-8 h-8 transition-transform group-hover:scale-110 drop-shadow-[0_0_10px_currentColor]" style={{ color: badge.color }} />
-                  <h4 className="text-sm font-bold text-white">{badge.name}</h4>
-                  <p className="text-[10px] text-[#888888] font-semibold">{badge.description}</p>
-                  <span className="text-[9px] font-bold text-white bg-white/10 border border-emerald-500/20 px-3 py-1 uppercase tracking-widest mt-2 rounded-none">
+                  <h4 className="text-lg font-bold text-white">{badge.name}</h4>
+                  <p className="text-lg text-[#888888] font-semibold">{badge.description}</p>
+                  <span className="text-base font-bold text-white bg-white/10 border border-emerald-500/20 px-3 py-1 uppercase tracking-widest mt-2 rounded-none">
                     Verified
                   </span>
                 </div>
@@ -279,12 +279,12 @@ export default function StudentDashboard() {
               <BrainCircuit className="text-[#ff2020] w-6 h-6" />
               <h3 className="text-lg font-bold text-white tracking-wide">Gemini Talent DNA Scanner</h3>
             </div>
-            <p className="text-sm text-[#888888] mb-6 font-medium leading-relaxed max-w-2xl">
+            <p className="text-lg text-[#888888] mb-6 font-medium leading-relaxed max-w-2xl">
               Paste your raw resume text here. Gemini AI will evaluate your skills, project originality, and learning velocity to update your CPI index and recalculate your live market valuation.
             </p>
 
             {parseSuccess && (
-              <div className="mb-6 p-4 rounded-none bg-white/10 border border-white/30 text-white text-sm font-bold flex items-center justify-center gap-2">
+              <div className="mb-6 p-4 rounded-none bg-white/10 border border-white/30 text-white text-lg font-bold flex items-center justify-center gap-2">
                 <CheckCircle className="w-5 h-5" />
                 Resume scanned successfully! Talent DNA profile updated.
               </div>
@@ -295,13 +295,13 @@ export default function StudentDashboard() {
               value={resumeText}
               onChange={(e) => setResumeText(e.target.value)}
               placeholder="Paste your resume content, projects, achievements, and Github links here..."
-              className="w-full bg-black border-[#ff2020]/20 border border-slate-700/50 p-4 rounded-none text-sm font-medium text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all resize-none mb-6 shadow-inner"
+              className="w-full bg-black border-[#ff2020]/20 border border-slate-700/50 p-4 rounded-none text-lg font-medium text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all resize-none mb-6 shadow-inner"
             />
             
             <button
               onClick={handleResumeParse}
               disabled={parsing || !resumeText.trim()}
-              className="terminal-button w-full py-4 text-sm font-bold text-white disabled:opacity-50 flex items-center justify-center gap-2 uppercase tracking-widest"
+              className="terminal-button w-full py-4 text-lg font-bold text-white disabled:opacity-50 flex items-center justify-center gap-2 uppercase tracking-widest"
             >
               {parsing ? "Parsing & Evaluating..." : "Scan & Evaluate Portfolio"}
             </button>
@@ -327,12 +327,12 @@ export default function StudentDashboard() {
             </div>
             <div className="grid grid-cols-2 gap-4 w-full mt-6 border-t border-[#ff2020]/30 pt-6">
               <div className="text-center bg-black border-[#ff2020]/20 rounded-none p-4 border border-[#ff2020]/20 shadow-inner">
-                <span className="text-[#888888] block text-[10px] font-bold tracking-widest uppercase mb-1">Future Potential</span>
-                <span className="font-bold text-white text-xl mono-font">{profileData.potentialScore}<span className="text-slate-600 text-xs">/100</span></span>
+                <span className="text-[#888888] block text-lg font-bold tracking-widest uppercase mb-1">Future Potential</span>
+                <span className="font-bold text-white text-xl mono-font">{profileData.potentialScore}<span className="text-slate-600 text-base">/100</span></span>
               </div>
               <div className="text-center bg-black border-[#ff2020]/20 rounded-none p-4 border border-[#ff2020]/20 shadow-inner">
-                <span className="text-[#888888] block text-[10px] font-bold tracking-widest uppercase mb-1">Velocity</span>
-                <span className="font-bold text-white text-xl mono-font">{profileData.cpiDetails.learningVelocity}<span className="text-slate-600 text-xs">/100</span></span>
+                <span className="text-[#888888] block text-lg font-bold tracking-widest uppercase mb-1">Velocity</span>
+                <span className="font-bold text-white text-xl mono-font">{profileData.cpiDetails.learningVelocity}<span className="text-slate-600 text-base">/100</span></span>
               </div>
             </div>
           </div>
@@ -342,7 +342,7 @@ export default function StudentDashboard() {
             <h3 className="text-lg font-bold text-white tracking-wide mb-4 flex items-center gap-2">
               <Lightbulb className="text-[#ff2020] w-5 h-5 drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]" /> AI Advisor Insights
             </h3>
-            <p className="text-sm text-[#cccccc] font-medium leading-relaxed bg-black border-[#ff2020]/20 rounded-none border border-[#ff2020]/20 p-5 shadow-inner">
+            <p className="text-lg text-[#cccccc] font-medium leading-relaxed bg-black border-[#ff2020]/20 rounded-none border border-[#ff2020]/20 p-5 shadow-inner">
               {profileData.insights}
             </p>
           </div>
@@ -354,8 +354,8 @@ export default function StudentDashboard() {
               {Object.entries(profileData.compatibility).map(([companyName, percentage]) => (
                 <div key={companyName} className="flex flex-col gap-2">
                   <div className="flex justify-between items-end">
-                    <span className="text-white font-semibold text-sm">{companyName}</span>
-                    <span className="font-bold mono-font text-[#ff2020] text-xs">{percentage as number}%</span>
+                    <span className="text-white font-semibold text-lg">{companyName}</span>
+                    <span className="font-bold mono-font text-[#ff2020] text-base">{percentage as number}%</span>
                   </div>
                   <div className="w-full bg-slate-800 rounded-none h-1.5 overflow-hidden">
                     <div 
