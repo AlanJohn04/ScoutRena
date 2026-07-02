@@ -31,7 +31,7 @@ export default function RankingsLeaderboard() {
   return (
     <div className="flex flex-col gap-8">
       {/* Header */}
-      <div className="flex justify-between items-center border-b border-white/5 pb-4">
+      <div className="flex justify-between items-center border-b border-[#ff2020]/20 pb-4">
         <div>
           <h2 className="text-2xl font-extrabold text-white tracking-wide flex items-center gap-2">
             <Trophy className="text-brand-amber w-6 h-6" />
@@ -42,7 +42,7 @@ export default function RankingsLeaderboard() {
       </div>
 
       {/* Leaderboard Tabs */}
-      <div className="flex gap-2 border-b border-white/5 pb-1">
+      <div className="flex gap-2 border-b border-[#ff2020]/20 pb-1">
         <button
           onClick={() => setActiveTab("global")}
           className={`py-2.5 px-6 rounded-t-lg text-xs font-bold uppercase tracking-wider transition cursor-pointer ${
@@ -86,7 +86,7 @@ export default function RankingsLeaderboard() {
       </div>
 
       {/* Tab Contents */}
-      <div className="glass-panel p-6">
+      <div className="terminal-panel p-6">
         
         {/* Global tab */}
         {activeTab === "global" && (
@@ -94,12 +94,12 @@ export default function RankingsLeaderboard() {
             <h3 className="text-xs font-bold text-white/40 uppercase tracking-widest mb-2">Top Talent Ranked by CPI potential</h3>
             <div className="flex flex-col gap-2">
               {sortedGlobal.map((candidate, idx) => (
-                <div key={candidate.id} className="flex items-center justify-between p-4 rounded-xl bg-white/2 border border-white/5 hover:border-brand-blue/20 transition group">
+                <div key={candidate.id} className="flex items-center justify-between p-4 rounded-none bg-white/2 border border-[#ff2020]/20 hover:border-brand-blue/20 transition group">
                   <div className="flex items-center gap-4">
-                    <span className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs ${getRankBadgeColor(idx)}`}>
+                    <span className={`w-8 h-8 rounded-none flex items-center justify-center font-bold text-xs ${getRankBadgeColor(idx)}`}>
                       #{idx + 1}
                     </span>
-                    <img src={candidate.avatar} alt={candidate.name} className="w-10 h-10 rounded-lg object-cover" />
+                    <img src={candidate.avatar} alt={candidate.name} className="w-10 h-10 rounded-none object-cover" />
                     <div>
                       <h4 className="text-sm font-bold text-white group-hover:text-brand-blue transition">{candidate.name}</h4>
                       <p className="text-[10px] text-white/40">{candidate.college} | {candidate.role}</p>
@@ -136,7 +136,7 @@ export default function RankingsLeaderboard() {
                 <button
                   key={dom}
                   onClick={() => setSelectedDomain(dom)}
-                  className={`py-1.5 px-4 rounded-full text-[11px] font-bold cursor-pointer transition ${
+                  className={`py-1.5 px-4 rounded-none text-[11px] font-bold cursor-pointer transition ${
                     selectedDomain === dom
                       ? "bg-brand-blue text-[#030616]"
                       : "bg-white/5 text-white/70 hover:bg-white/10"
@@ -151,12 +151,12 @@ export default function RankingsLeaderboard() {
               {sortedValue
                 .filter((c) => selectedDomain === "All" || c.role === selectedDomain)
                 .map((candidate, idx) => (
-                  <div key={candidate.id} className="flex items-center justify-between p-4 rounded-xl bg-white/2 border border-white/5 hover:border-brand-blue/20 transition group">
+                  <div key={candidate.id} className="flex items-center justify-between p-4 rounded-none bg-white/2 border border-[#ff2020]/20 hover:border-brand-blue/20 transition group">
                     <div className="flex items-center gap-4">
-                      <span className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs bg-white/5 text-white/60`}>
+                      <span className={`w-8 h-8 rounded-none flex items-center justify-center font-bold text-xs bg-white/5 text-white/60`}>
                         #{idx + 1}
                       </span>
-                      <img src={candidate.avatar} alt={candidate.name} className="w-10 h-10 rounded-lg object-cover" />
+                      <img src={candidate.avatar} alt={candidate.name} className="w-10 h-10 rounded-none object-cover" />
                       <div>
                         <h4 className="text-sm font-bold text-white group-hover:text-brand-blue transition">{candidate.name}</h4>
                         <p className="text-[10px] text-white/40">{candidate.college} | {candidate.role}</p>
@@ -190,15 +190,15 @@ export default function RankingsLeaderboard() {
                 .sort((a, b) => b.cpi - a.cpi);
 
               return (
-                <div key={college} className="p-4 rounded-xl bg-white/2 border border-white/5 flex flex-col gap-4">
-                  <div className="flex items-center gap-2 border-b border-white/5 pb-2">
+                <div key={college} className="p-4 rounded-none bg-white/2 border border-[#ff2020]/20 flex flex-col gap-4">
+                  <div className="flex items-center gap-2 border-b border-[#ff2020]/20 pb-2">
                     <Award className="text-brand-purple w-4.5 h-4.5" />
                     <h4 className="text-sm font-bold text-white">{college} Leaderboard</h4>
                   </div>
 
                   <div className="flex flex-col gap-2">
                     {students.map((student, idx) => (
-                      <div key={student.id} className="flex items-center justify-between p-2 rounded-lg bg-white/2 hover:bg-white/5 transition text-xs">
+                      <div key={student.id} className="flex items-center justify-between p-2 rounded-none bg-white/2 hover:bg-white/5 transition text-xs">
                         <div className="flex items-center gap-2">
                           <span className="font-bold text-white/40">#{idx + 1}</span>
                           <span className="font-semibold text-white truncate max-w-[100px]">{student.name}</span>
@@ -221,12 +221,12 @@ export default function RankingsLeaderboard() {
             </h3>
             <div className="flex flex-col gap-2">
               {sortedRising.map((candidate, idx) => (
-                <div key={candidate.id} className="flex items-center justify-between p-4 rounded-xl bg-white/2 border border-white/5 hover:border-brand-blue/20 transition group">
+                <div key={candidate.id} className="flex items-center justify-between p-4 rounded-none bg-white/2 border border-[#ff2020]/20 hover:border-brand-blue/20 transition group">
                   <div className="flex items-center gap-4">
-                    <span className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs bg-brand-pink/10 text-brand-pink">
+                    <span className="w-8 h-8 rounded-none flex items-center justify-center font-bold text-xs bg-brand-pink/10 text-brand-pink">
                       +{candidate.growthRate}%
                     </span>
-                    <img src={candidate.avatar} alt={candidate.name} className="w-10 h-10 rounded-lg object-cover" />
+                    <img src={candidate.avatar} alt={candidate.name} className="w-10 h-10 rounded-none object-cover" />
                     <div>
                       <h4 className="text-sm font-bold text-white group-hover:text-brand-blue transition">{candidate.name}</h4>
                       <p className="text-[10px] text-white/40">{candidate.college} | {candidate.role}</p>

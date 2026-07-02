@@ -97,7 +97,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="w-full bg-transparent border-b border-[#ff2020]/20 z-50">
+    <nav className="w-full bg-black border-b border-[#ff2020]/20 z-50 sticky top-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-12 lg:px-16">
         <div className="flex justify-between items-center h-16">
           {/* Logo Section */}

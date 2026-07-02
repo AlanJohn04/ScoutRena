@@ -18,11 +18,8 @@ export default function Home() {
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="w-full max-w-4xl bg-[#ff2020] p-16 md:p-24 flex flex-col items-center justify-center text-center relative shadow-[0_0_50px_rgba(255,32,32,0.3)] z-10 glitch-hover"
+        className="w-full max-w-4xl bg-[#ff2020] p-16 md:p-24 flex flex-col items-center justify-center text-center relative z-10 glitch-hover"
       >
-        <div className="absolute top-4 left-4 text-black text-[10px] font-bold tracking-widest mono-font">[SYSTEM_INIT]</div>
-        <div className="absolute top-4 right-4 text-black text-[10px] font-bold tracking-widest mono-font">[V.1.0]</div>
-        
         <div className="py-1 px-3 border border-black text-[10px] font-bold tracking-widest text-black uppercase mb-10 mono-font">
           [ INTRODUCING SCOUTRENA ENTERPRISE ]
         </div>
@@ -50,9 +47,6 @@ export default function Home() {
             [ EXPLORE_MARKET ]
           </Link>
         </div>
-        
-        <div className="absolute bottom-4 left-4 text-black text-[10px] font-bold tracking-widest mono-font hidden md:block">[STATUS: AWAITING_INPUT]</div>
-        <div className="absolute bottom-4 right-4 text-black text-[10px] font-bold tracking-widest mono-font">[READY]</div>
       </motion.div>
 
       {/* Corporate-style stats and pillars - Terminal Style */}

@@ -209,7 +209,7 @@ export default function PublicStudentProfile() {
   return (
     <div className="flex flex-col gap-8">
       {/* Action Header */}
-      <div className="flex justify-between items-center border-b border-white/5 pb-6">
+      <div className="flex justify-between items-center border-b border-[#ff2020]/20 pb-6">
         <div>
           <span className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Talent Transfer Market Profile</span>
           <h2 className="text-3xl font-bold text-white tracking-tight mt-1">
@@ -221,18 +221,18 @@ export default function PublicStudentProfile() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setBlindMode(!blindMode)}
-            className="flex items-center gap-2 py-2 px-4 rounded-xl bg-zinc-900 border border-white/5 hover:bg-zinc-800 text-sm font-medium text-white transition-all cursor-pointer shadow-sm"
+            className="flex items-center gap-2 py-2 px-4 rounded-none bg-zinc-900 border border-[#ff2020]/20 hover:bg-zinc-800 text-sm font-medium text-white transition-all cursor-pointer shadow-sm"
           >
-            {blindMode ? <Eye className="w-4 h-4 text-indigo-400" /> : <EyeOff className="w-4 h-4 text-rose-400" />}
+            {blindMode ? <Eye className="w-4 h-4 text-[#ff2020]" /> : <EyeOff className="w-4 h-4 text-[#ff2020]" />}
             {blindMode ? "Disable Blind Mode" : "Enable Blind Mode"}
           </button>
 
           {currentUser?.role === "company" && (
             <button
               onClick={handleFollowToggle}
-              className={`flex items-center gap-2 py-2 px-4 rounded-xl text-sm font-medium transition-all cursor-pointer shadow-sm ${
+              className={`flex items-center gap-2 py-2 px-4 rounded-none text-sm font-medium transition-all cursor-pointer shadow-sm ${
                 following 
-                  ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20" 
+                  ? "bg-white/10 text-white border border-emerald-500/20 hover:bg-emerald-500/20" 
                   : "bg-white text-black hover:bg-zinc-200"
               }`}
             >
@@ -250,38 +250,38 @@ export default function PublicStudentProfile() {
         <div className="lg:col-span-2 flex flex-col gap-8">
           
           {/* Card Hero details */}
-          <div className="glass-panel p-8 flex flex-col md:flex-row gap-8 items-center relative overflow-hidden group">
+          <div className="terminal-panel p-8 flex flex-col md:flex-row gap-8 items-center relative overflow-hidden group">
             {/* Subtle glow behind avatar */}
-            <div className="absolute top-1/2 left-12 -translate-y-1/2 w-32 h-32 bg-indigo-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+            <div className="absolute top-1/2 left-12 -translate-y-1/2 w-32 h-32 bg-indigo-500/20 rounded-none blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
-            <img src={displayAvatar} alt={displayName} className="w-28 h-28 rounded-2xl object-cover border border-white/10 shadow-xl relative z-10" />
+            <img src={displayAvatar} alt={displayName} className="w-28 h-28 rounded-2xl object-cover border border-[#ff2020]/30 shadow-none relative z-10" />
             
             <div className="flex-1 text-center md:text-left relative z-10">
               <h3 className="text-2xl font-bold text-white tracking-tight">{displayName}</h3>
-              <p className="text-sm text-indigo-400 font-medium mt-1">
+              <p className="text-sm text-[#ff2020] font-medium mt-1">
                 {displayCollege} • {candidate.role}
               </p>
               
               <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-5">
                 {candidate.skills.map((skill) => (
-                  <span key={skill} className="py-1.5 px-3 bg-zinc-800/80 border border-white/5 text-xs text-zinc-300 font-medium rounded-lg whitespace-nowrap">
+                  <span key={skill} className="py-1.5 px-3 bg-zinc-800/80 border border-[#ff2020]/20 text-xs text-zinc-300 font-medium rounded-none whitespace-nowrap">
                     {skill}
                   </span>
                 ))}
               </div>
             </div>
 
-            <div className="flex flex-col gap-1 w-full md:w-auto p-5 rounded-2xl bg-zinc-900/50 border border-white/5 text-center shrink-0 relative z-10">
+            <div className="flex flex-col gap-1 w-full md:w-auto p-5 rounded-2xl bg-zinc-900/50 border border-[#ff2020]/20 text-center shrink-0 relative z-10">
               <span className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Market Value</span>
               <p className="text-3xl font-bold text-white tracking-tight mono-font mt-1">{candidate.currentValue.toLocaleString()} TT</p>
-              <span className="text-[10px] text-emerald-400 font-medium uppercase tracking-wider mt-2">
+              <span className="text-[10px] text-white font-medium uppercase tracking-wider mt-2">
                 Max Bid: {candidate.highestBid} TT ({candidate.highestBidder})
               </span>
             </div>
           </div>
 
           {/* Value History Chart */}
-          <div className="glass-panel p-6">
+          <div className="terminal-panel p-6">
             <h3 className="text-sm font-bold text-white uppercase tracking-widest mb-4">CAREER VALUE TREND (LIVE STOCK CHART)</h3>
             <div className="h-60 w-full">
               <ResponsiveContainer width="100%" height="100%">
@@ -306,11 +306,11 @@ export default function PublicStudentProfile() {
           </div>
 
           {/* Soul Bound Badges */}
-          <div className="glass-panel p-6">
+          <div className="terminal-panel p-6">
             <h3 className="text-sm font-bold text-white uppercase tracking-widest mb-4">VERIFIED SOULBOUND (SBT) BADGES</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {candidate.badges.map((badge) => (
-                <div key={badge.id} className="p-3.5 rounded-xl bg-slate-900/50 border border-slate-700/50 flex flex-col items-center gap-2 text-center" style={{ borderTop: `2px solid ${badge.color}` }}>
+                <div key={badge.id} className="p-3.5 rounded-none bg-black border-[#ff2020]/20 border border-slate-700/50 flex flex-col items-center gap-2 text-center" style={{ borderTop: `2px solid ${badge.color}` }}>
                   <Award className="w-8 h-8" style={{ color: badge.color }} />
                   <h4 className="text-xs font-bold text-white">{badge.name}</h4>
                   <p className="text-[10px] text-white/50 leading-tight">{badge.description}</p>
@@ -325,12 +325,12 @@ export default function PublicStudentProfile() {
         <div className="flex flex-col gap-6">
           
           {/* Bidding Panel */}
-          <div className="glass-panel p-6 flex flex-col gap-4 border-brand-amber/20">
+          <div className="terminal-panel p-6 flex flex-col gap-4 border-brand-amber/20">
             <h3 className="text-sm font-bold text-white uppercase tracking-widest flex items-center gap-1.5">
               <Coins className="text-amber-500 w-4.5 h-4.5" /> Place Strategic Bid
             </h3>
 
-            <div className="bg-slate-900/50 p-3 rounded-lg border border-slate-700/50 flex flex-col gap-1">
+            <div className="bg-black border-[#ff2020]/20 p-3 rounded-none border border-slate-700/50 flex flex-col gap-1">
               <div className="flex justify-between text-xs text-white/50">
                 <span>Highest Bid:</span>
                 <span className="font-bold text-white">{candidate.highestBid} TT</span>
@@ -350,7 +350,7 @@ export default function PublicStudentProfile() {
                     min={candidate.highestBid + 100}
                     value={bidAmount}
                     onChange={(e) => setBidAmount(e.target.value)}
-                    className="w-full bg-slate-800/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-amber transition font-semibold mono-font"
+                    className="w-full bg-slate-800/50 border border-[#ff2020]/30 rounded-none px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-amber transition font-semibold mono-font"
                   />
                   <span className="text-[9px] text-white/40 mt-1 block">
                     Your Wallet: {currentUser.tokenBalance?.toLocaleString()} TT
@@ -360,20 +360,20 @@ export default function PublicStudentProfile() {
                 <button
                   onClick={handlePlaceBid}
                   disabled={bidding}
-                  className="w-full py-2.5 rounded-lg text-xs font-bold text-[#030616] bg-brand-amber hover:opacity-95 disabled:opacity-50 transition cursor-pointer flex items-center justify-center gap-1 shadow-lg shadow-brand-amber/10"
+                  className="w-full py-2.5 rounded-none text-xs font-bold text-[#030616] bg-brand-amber hover:opacity-95 disabled:opacity-50 transition cursor-pointer flex items-center justify-center gap-1 shadow-none shadow-brand-amber/10"
                 >
                   {bidding ? "TRANSACTING ON CHAIN..." : "SUBMIT TRANSFER BID"}
                 </button>
               </div>
             ) : (
-              <div className="p-3 text-center text-xs text-white/40 bg-slate-900/50 rounded-lg border border-slate-700/50">
+              <div className="p-3 text-center text-xs text-white/40 bg-black border-[#ff2020]/20 rounded-none border border-slate-700/50">
                 Register a company account to bid with Talent Tokens on this candidate.
               </div>
             )}
           </div>
 
           {/* Radar chart */}
-          <div className="glass-panel p-6 flex flex-col items-center">
+          <div className="terminal-panel p-6 flex flex-col items-center">
             <h3 className="text-sm font-bold text-white uppercase tracking-widest mb-4 self-start">POTENTIAL (CPI) RADAR</h3>
             <div className="h-52 w-full flex items-center justify-center">
               <ResponsiveContainer width="100%" height="100%">
@@ -388,14 +388,14 @@ export default function PublicStudentProfile() {
           </div>
 
           {/* Bids Log */}
-          <div className="glass-panel p-6">
+          <div className="terminal-panel p-6">
             <h3 className="text-sm font-bold text-white uppercase tracking-widest mb-3">Pending Bids History</h3>
             <div className="flex flex-col gap-2 max-h-40 overflow-y-auto">
               {bidsList.map((bid, idx) => (
-                <div key={idx} className="flex justify-between items-center text-xs p-2 rounded bg-slate-900/50 border border-slate-700/50">
+                <div key={idx} className="flex justify-between items-center text-xs p-2 rounded bg-black border-[#ff2020]/20 border border-slate-700/50">
                   <span className="font-semibold text-white/70">{bid.company}</span>
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-indigo-400 mono-font">{bid.amount} TT</span>
+                    <span className="font-bold text-[#ff2020] mono-font">{bid.amount} TT</span>
                     <span className="text-[10px] text-white/30">{bid.timestamp}</span>
                   </div>
                 </div>

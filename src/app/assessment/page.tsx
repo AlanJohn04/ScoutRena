@@ -109,7 +109,7 @@ export default function AssessmentArena() {
   return (
     <div className="flex flex-col gap-8">
       {/* Header */}
-      <div className="flex justify-between items-center border-b border-white/5 pb-4">
+      <div className="flex justify-between items-center border-b border-[#ff2020]/20 pb-4">
         <div>
           <h2 className="text-2xl font-extrabold text-white tracking-wide flex items-center gap-2">
             <BrainCircuit className="text-brand-purple w-6 h-6 animate-pulse" />
@@ -126,7 +126,7 @@ export default function AssessmentArena() {
         
         {/* Left Side: Test Setup or Test Question Info */}
         <div className="lg:col-span-1 flex flex-col gap-6">
-          <div className="glass-panel p-6">
+          <div className="terminal-panel p-6">
             <h3 className="text-sm font-bold text-white uppercase tracking-widest mb-4 flex items-center gap-1.5">
               <Sparkles className="text-brand-blue w-4 h-4" /> AI TEST GENERATOR
             </h3>
@@ -138,7 +138,7 @@ export default function AssessmentArena() {
                   type="text"
                   value={skillsText}
                   onChange={(e) => setSkillsText(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-xs text-white focus:outline-none focus:border-brand-purple transition"
+                  className="w-full bg-white/5 border border-[#ff2020]/30 rounded-none px-3 py-2.5 text-xs text-white focus:outline-none focus:border-brand-purple transition"
                   placeholder="e.g. React, Next.js, Solidity"
                 />
               </div>
@@ -146,7 +146,7 @@ export default function AssessmentArena() {
               <button
                 onClick={handleCreateTest}
                 disabled={loading || !skillsText.trim()}
-                className="w-full py-2.5 rounded-lg text-xs font-bold text-white bg-gradient-to-r from-brand-purple to-brand-blue hover:opacity-90 transition cursor-pointer flex items-center justify-center gap-1.5 shadow-lg shadow-brand-purple/10"
+                className="w-full py-2.5 rounded-none text-xs font-bold text-white bg-gradient-to-r from-brand-purple to-brand-blue hover:opacity-90 transition cursor-pointer flex items-center justify-center gap-1.5 shadow-none shadow-brand-purple/10"
               >
                 {loading ? "GENERATING TEST STRUCTURE..." : "GENERATE CUSTOM ASSESSMENT"}
               </button>
@@ -155,13 +155,13 @@ export default function AssessmentArena() {
 
           {/* Report Card */}
           {report && (
-            <div className="glass-panel p-6 border-brand-green/30 bg-brand-green/5 relative overflow-hidden flex flex-col gap-4">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-brand-green/5 rounded-full blur-2xl"></div>
-              <h3 className="text-sm font-bold text-white uppercase tracking-widest flex items-center gap-1.5 border-b border-white/5 pb-2">
+            <div className="terminal-panel p-6 border-brand-green/30 bg-brand-green/5 relative overflow-hidden flex flex-col gap-4">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-brand-green/5 rounded-none blur-2xl"></div>
+              <h3 className="text-sm font-bold text-white uppercase tracking-widest flex items-center gap-1.5 border-b border-[#ff2020]/20 pb-2">
                 <CheckCircle className="text-brand-green w-4.5 h-4.5" /> AI GRADE REPORT CARD
               </h3>
 
-              <div className="text-center py-4 bg-white/2 rounded-xl border border-white/5">
+              <div className="text-center py-4 bg-white/2 rounded-none border border-[#ff2020]/20">
                 <span className="text-[10px] text-white/40 uppercase block">Assessment Score</span>
                 <span className="text-4xl font-extrabold text-brand-green">{report.score}</span>
                 <span className="text-xs text-white/40 block mt-1">out of 100</span>
@@ -173,7 +173,7 @@ export default function AssessmentArena() {
                   <p className="text-white/80 leading-relaxed mt-1">{report.feedback}</p>
                 </div>
 
-                <div className="flex justify-between items-center mt-2 border-t border-white/5 pt-2">
+                <div className="flex justify-between items-center mt-2 border-t border-[#ff2020]/20 pt-2">
                   <span className="text-white/40">Plagiarism Rate:</span>
                   <span className="font-bold text-brand-green flex items-center gap-1">
                     <ShieldAlert className="w-3.5 h-3.5 text-brand-green" /> {report.plagiarism} (Unique)
@@ -187,8 +187,8 @@ export default function AssessmentArena() {
         {/* Right Side: Coding Console and MCQs */}
         <div className="lg:col-span-2 flex flex-col gap-6">
           {assessment ? (
-            <div className="glass-panel p-6 flex flex-col gap-6">
-              <div className="flex justify-between items-center border-b border-white/5 pb-3">
+            <div className="terminal-panel p-6 flex flex-col gap-6">
+              <div className="flex justify-between items-center border-b border-[#ff2020]/20 pb-3">
                 <h3 className="text-sm font-bold text-white uppercase tracking-widest flex items-center gap-1.5">
                   <Code className="text-brand-blue w-4 h-4" /> Live Compiler Arena
                 </h3>
@@ -206,10 +206,10 @@ export default function AssessmentArena() {
                       </div>
                       
                       {/* Editor Simulator */}
-                      <div className="border border-white/10 rounded-lg overflow-hidden bg-[#030616]">
-                        <div className="bg-white/5 px-4 py-2 text-[10px] font-bold text-white/50 border-b border-white/5 uppercase tracking-wider flex items-center justify-between">
+                      <div className="border border-[#ff2020]/30 rounded-none overflow-hidden bg-[#030616]">
+                        <div className="bg-white/5 px-4 py-2 text-[10px] font-bold text-white/50 border-b border-[#ff2020]/20 uppercase tracking-wider flex items-center justify-between">
                           <span>Main Source File (Solidity/TS)</span>
-                          <span className="w-2.5 h-2.5 rounded-full bg-brand-blue animate-pulse"></span>
+                          <span className="w-2.5 h-2.5 rounded-none bg-brand-blue animate-pulse"></span>
                         </div>
                         <textarea
                           rows={12}
@@ -223,7 +223,7 @@ export default function AssessmentArena() {
                   );
                 } else {
                   return (
-                    <div key={q.id} className="flex flex-col gap-3 border-t border-white/5 pt-4">
+                    <div key={q.id} className="flex flex-col gap-3 border-t border-[#ff2020]/20 pt-4">
                       <h4 className="text-xs font-bold text-white uppercase tracking-widest">Multiple Choice Core Question</h4>
                       <p className="text-xs text-white/80 font-medium leading-relaxed">{q.question}</p>
                       
@@ -233,10 +233,10 @@ export default function AssessmentArena() {
                             key={oIdx}
                             type="button"
                             onClick={() => setMcqAnswer(oIdx)}
-                            className={`p-3 rounded-lg text-left text-xs font-bold transition cursor-pointer border ${
+                            className={`p-3 rounded-none text-left text-xs font-bold transition cursor-pointer border ${
                               mcqAnswer === oIdx
                                 ? "bg-brand-blue/10 border-brand-blue text-brand-blue"
-                                : "bg-white/2 border-white/5 text-white/70 hover:bg-white/5"
+                                : "bg-white/2 border-[#ff2020]/20 text-white/70 hover:bg-white/5"
                             }`}
                           >
                             <span className="mr-2 text-white/30">{String.fromCharCode(65 + oIdx)}.</span>
@@ -252,13 +252,13 @@ export default function AssessmentArena() {
               <button
                 onClick={handleSubmitTest}
                 disabled={submitting}
-                className="w-full mt-2 py-3 rounded-lg text-sm font-bold text-[#030616] bg-brand-blue hover:bg-brand-blue/95 disabled:opacity-50 transition cursor-pointer flex items-center justify-center gap-1.5 shadow-lg shadow-brand-blue/10"
+                className="w-full mt-2 py-3 rounded-none text-sm font-bold text-[#030616] bg-brand-blue hover:bg-brand-blue/95 disabled:opacity-50 transition cursor-pointer flex items-center justify-center gap-1.5 shadow-none shadow-brand-blue/10"
               >
                 {submitting ? "SUBMITTING AND AI GRADING..." : "SUBMIT ARENA ANSWERS"}
               </button>
             </div>
           ) : (
-            <div className="glass-panel p-20 flex flex-col justify-center items-center gap-4 text-center border-dashed border-white/10">
+            <div className="terminal-panel p-20 flex flex-col justify-center items-center gap-4 text-center border-dashed border-[#ff2020]/30">
               <BrainCircuit className="w-16 h-16 text-white/20 animate-pulse" />
               <div>
                 <h3 className="text-sm font-bold text-white uppercase tracking-widest">Arena Portal Locked</h3>
