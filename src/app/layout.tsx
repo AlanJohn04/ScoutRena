@@ -29,10 +29,10 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-black text-white selection:bg-[#ff2020]/30 selection:text-white">
+      <body className="min-h-full flex flex-col bg-[#050505] text-white selection:bg-[#ff2020]/30 selection:text-white">
         
         {/* Terminal Diagnostic Overlays (Utopia Tokyo inspired) */}
-        <div className="fixed top-0 left-0 h-full w-12 border-r border-[#ff2020]/20 hidden md:flex flex-col justify-between items-center py-8 z-50 pointer-events-none">
+        <div className="fixed top-0 left-0 h-full w-12 border-r border-[#ff2020]/20 hidden md:flex flex-col justify-between items-center py-8 z-50 pointer-events-none mix-blend-screen">
           <span className="text-[10px] text-[#ff2020] font-bold tracking-widest rotate-90 whitespace-nowrap opacity-70">[SYS_LOADING]</span>
           <span className="text-[10px] text-[#ff2020] font-bold opacity-70">U</span>
           <span className="text-[10px] text-[#ff2020] font-bold opacity-70">P</span>
@@ -40,7 +40,7 @@ export default function RootLayout({
           <span className="text-[10px] text-[#ff2020] font-bold tracking-widest -rotate-90 whitespace-nowrap opacity-70">[VERSION 1.0]</span>
         </div>
         
-        <div className="fixed top-0 right-0 h-full w-12 border-l border-[#ff2020]/20 hidden md:flex flex-col justify-between items-center py-8 z-50 pointer-events-none">
+        <div className="fixed top-0 right-0 h-full w-12 border-l border-[#ff2020]/20 hidden md:flex flex-col justify-between items-center py-8 z-50 pointer-events-none mix-blend-screen">
           <span className="text-[10px] text-[#ff2020] font-bold tracking-widest rotate-90 whitespace-nowrap opacity-70">[COORDS_OK]</span>
           <span className="text-[10px] text-[#ff2020] font-bold opacity-70">0</span>
           <span className="text-[10px] text-[#ff2020] font-bold opacity-70">A</span>
@@ -52,16 +52,19 @@ export default function RootLayout({
           <span className="text-[10px] text-[#ff2020] font-bold tracking-widest -rotate-90 whitespace-nowrap opacity-70">[ACTIVE]</span>
         </div>
 
-        {/* Bloomberg-style scrolling tickers at the top (Refined) */}
-        <LiveTicker />
-        
-        {/* Top Navbar */}
-        <Navbar />
+        {/* Central Application Window wrapper */}
+        <div className="w-full max-w-[1280px] mx-auto min-h-screen bg-black border-x border-[#ff2020]/30 flex flex-col relative shadow-[0_0_150px_rgba(255,32,32,0.05)]">
+          {/* Bloomberg-style scrolling tickers at the top (Refined) */}
+          <LiveTicker />
+          
+          {/* Top Navbar */}
+          <Navbar />
 
-        {/* Main Content Area */}
-        <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-12 lg:px-16 py-8 relative">
-          {children}
-        </main>
+          {/* Main Content Area */}
+          <main className="flex-1 w-full px-4 sm:px-8 lg:px-12 py-8 relative">
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );

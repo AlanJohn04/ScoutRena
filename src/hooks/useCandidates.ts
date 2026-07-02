@@ -19,7 +19,12 @@ export function useCandidates() {
     // Seed database if empty, then listen to realtime updates
     const initAndListen = async () => {
       try {
-        const snap = await getDocs(candidatesRef);
+        // Implement a timeout to fallback to mock data if Firebase hangs
+        const fetchPromise = getDocs(candidatesRef);
+        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Firebase timeout")), 3000));
+        
+        const snap = await Promise.race([fetchPromise, timeoutPromise]) as any;
+
         if (snap.empty) {
           console.log("Seeding candidates to Firestore...");
           for (const c of mockCandidates) {
@@ -39,7 +44,7 @@ export function useCandidates() {
         
         return unsubscribe;
       } catch (error) {
-        console.error("Error fetching candidates:", error);
+        console.error("Error fetching candidates (falling back to mock):", error);
         setCandidates(mockCandidates);
         setLoading(false);
       }
