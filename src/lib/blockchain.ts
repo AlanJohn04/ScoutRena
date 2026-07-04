@@ -16,9 +16,9 @@ export function getProvider() {
 export async function getSigner() {
   const provider = getProvider();
   if (provider instanceof ethers.BrowserProvider) {
-    // Force MetaMask to use Chain ID 1337 (0x539) to match the node
+    // Force MetaMask to use Chain ID 31337 (0x7a69) to match the node
     try {
-      await provider.send("wallet_switchEthereumChain", [{ chainId: "0x539" }]);
+      await provider.send("wallet_switchEthereumChain", [{ chainId: "0x7a69" }]);
     } catch (switchError: any) {
       // In ethers v6, the actual provider error is wrapped. We check if the message or nested error code implies 4902.
       const errorStr = String(switchError);
@@ -26,8 +26,8 @@ export async function getSigner() {
         try {
           await provider.send("wallet_addEthereumChain", [
             {
-              chainId: "0x539",
-              chainName: "Localhost 1337",
+              chainId: "0x7a69",
+              chainName: "Localhost 31337",
               rpcUrls: [LOCAL_RPC_URL],
               nativeCurrency: {
                 name: "ETH",
@@ -37,10 +37,10 @@ export async function getSigner() {
             },
           ]);
         } catch (addError) {
-          console.error("Failed to add Localhost 1337 network to MetaMask", addError);
+          console.error("Failed to add Localhost 31337 network to MetaMask", addError);
         }
       } else {
-        console.error("Failed to switch to Localhost 1337 network in MetaMask", switchError);
+        console.error("Failed to switch to Localhost 31337 network in MetaMask", switchError);
       }
     }
 
