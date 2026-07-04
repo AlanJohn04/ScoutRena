@@ -22,7 +22,7 @@ export default function CandidateDiscovery() {
 
     // Apply advanced filter buttons
     if (activeFilter === "best_now") {
-      return c.cpiDetails.technicalAbility >= 85;
+      return c.cpiDetails.problemSolving >= 85;
     }
     if (activeFilter === "best_future") {
       return c.potentialScore >= 95;
@@ -39,7 +39,7 @@ export default function CandidateDiscovery() {
   // Sort candidates depending on current filter
   const sortedCandidates = [...filteredCandidates].sort((a, b) => {
     if (activeFilter === "best_now") {
-      return b.cpiDetails.technicalAbility - a.cpiDetails.technicalAbility;
+      return b.cpiDetails.problemSolving - a.cpiDetails.problemSolving;
     }
     if (activeFilter === "best_future") {
       return b.potentialScore - a.potentialScore;

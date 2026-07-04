@@ -32,13 +32,13 @@ export default function Register() {
         extra.marketValue = 1500; // default starting TT value
         extra.skills = ["React", "TypeScript", "Node.js"];
         extra.cpiDetails = {
-          technicalAbility: 70,
-          learningVelocity: 75,
-          consistency: 60,
-          projectOriginality: 65,
-          communityContribution: 50,
-          behavior: 80,
-          adaptability: 75
+          problemSolving: 70,
+          engineering: 75,
+          learningAgility: 60,
+          innovation: 65,
+          collaboration: 50,
+          delivery: 80,
+          domainExpertise: 75
         };
         extra.valueHistory = [
           { date: "Jan", value: 1000 },

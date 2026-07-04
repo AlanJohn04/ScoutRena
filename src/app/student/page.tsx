@@ -99,13 +99,13 @@ export default function StudentDashboard() {
         pendingBids: [],
         skills: user.skills || ["React", "TypeScript", "Node.js"],
         cpiDetails: (user as any).cpiDetails || {
-          technicalAbility: 70,
-          learningVelocity: 75,
-          consistency: 60,
-          projectOriginality: 65,
-          communityContribution: 50,
-          behavior: 80,
-          adaptability: 75
+          problemSolving: 70,
+          engineering: 75,
+          learningAgility: 60,
+          innovation: 65,
+          collaboration: 50,
+          delivery: 80,
+          domainExpertise: 75
         },
         valueHistory: (user as any).valueHistory || [
           { date: "Jan", value: 1000 },
@@ -166,7 +166,7 @@ export default function StudentDashboard() {
       // Update state and localStorage
       const updatedDetails = {
         ...profileData,
-        cpi: Math.round((aiResult.cpi.technicalAbility + aiResult.cpi.learningVelocity + aiResult.cpi.consistency) / 3),
+        cpi: Math.round((aiResult.cpi.problemSolving + aiResult.cpi.learningAgility + aiResult.cpi.engineering) / 3),
         potentialScore: aiResult.potentialScore,
         skills: aiResult.skills,
         cpiDetails: aiResult.cpi,

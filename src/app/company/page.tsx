@@ -205,13 +205,13 @@ export default function CompanyDashboard() {
       Role: c.role,
       "Talent Value (TT)": c.currentValue,
       "Future Potential (CPI)": c.potentialScore,
-      "Problem Solving": c.cpiDetails.problemSolving || c.cpiDetails.technicalAbility,
-      "Engineering": c.cpiDetails.engineering || c.cpiDetails.consistency,
-      "Learning Agility": c.cpiDetails.learningAgility || c.cpiDetails.learningVelocity,
-      "Innovation": c.cpiDetails.innovation || c.cpiDetails.projectOriginality,
-      "Collaboration": c.cpiDetails.collaboration || c.cpiDetails.behavior,
-      "Delivery": c.cpiDetails.delivery || c.cpiDetails.adaptability,
-      "Domain Expertise": c.cpiDetails.domainExpertise || c.cpiDetails.communityContribution,
+      "Problem Solving": c.cpiDetails.problemSolving,
+      "Engineering": c.cpiDetails.engineering,
+      "Learning Agility": c.cpiDetails.learningAgility,
+      "Innovation": c.cpiDetails.innovation,
+      "Collaboration": c.cpiDetails.collaboration,
+      "Delivery": c.cpiDetails.delivery,
+      "Domain Expertise": c.cpiDetails.domainExpertise,
       "Blue Lock Insight": c.insights
     }));
 
